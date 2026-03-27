@@ -1,0 +1,109 @@
+{
+  "app": {
+    "name": "ОсонПрава",
+    "tagline": "Ҳайдовчилик гувоҳномаси имтиҳонига тайёрланинг!"
+  },
+  "nav": {
+    "dashboard": "Бош саҳифа",
+    "tickets": "Билетлар",
+    "topics": "Мавзулар",
+    "exam": "Имтиҳон",
+    "marathon": "Марафон",
+    "smartTest": "Ақлли тест",
+    "octagon": "Октагон",
+    "mistakes": "Хатолар устида ишлаш",
+    "stats": "Статистика",
+    "profile": "Профил",
+    "settings": "Созламалар",
+    "subscription": "Обуна",
+    "leaderboard": "Лидерлар",
+    "achievements": "Ютуқлар"
+  },
+  "auth": {
+    "login": "Кириш",
+    "loginWithTelegram": "Телеграм орқали кириш",
+    "logout": "Чиқиш"
+  },
+  "dashboard": {
+    "greeting": "Салом, {name}!",
+    "streak": "{count} кунлик streak",
+    "progress": "Умумий прогресс",
+    "questionsLearned": "Ўрганилган саволлар",
+    "continueTest": "Тестни давом эттириш",
+    "quickActions": "Тезкор ҳаракатлар"
+  },
+  "test": {
+    "question": "Савол",
+    "of": "/",
+    "correct": "Тўғри",
+    "wrong": "Нотўғри",
+    "next": "Кейинги",
+    "prev": "Олдинги",
+    "finish": "Тугатиш",
+    "result": "Натижа",
+    "score": "Балл",
+    "time": "Вақт",
+    "tryAgain": "Қайта уриниш",
+    "reviewMistakes": "Хатоларни кўриш",
+    "explanation": "Тушунтириш",
+    "timeLeft": "Қолган вақт"
+  },
+  "tickets": {
+    "title": "Билетлар",
+    "ticket": "Билет",
+    "questions": "та савол",
+    "notStarted": "Бошланмаган",
+    "inProgress": "Жараёнда",
+    "completed": "Тугатилган",
+    "bestScore": "Энг яхши натижа"
+  },
+  "topics": {
+    "title": "Мавзулар",
+    "progress": "Прогресс"
+  },
+  "octagon": {
+    "title": "Октагон",
+    "subtitle": "1 га 1 онлайн беллашув",
+    "findOpponent": "Рақиб топиш",
+    "searching": "Рақиб қидирилмоқда...",
+    "vs": "VS",
+    "youWon": "Сиз ютдингиз!",
+    "youLost": "Сиз ютқаздингиз",
+    "draw": "Дурранг",
+    "playAgain": "Яна ўйнаш",
+    "score": "Ҳисобни"
+  },
+  "smartTest": {
+    "title": "Ақлли тест",
+    "subtitle": "SM-2 алгоритми асосида саволлар",
+    "learned": "Ўрганилган",
+    "remaining": "Қолган",
+    "start": "Бошлаш"
+  },
+  "profile": {
+    "title": "Профил",
+    "editProfile": "Профилни таҳрирлаш",
+    "language": "Тил",
+    "darkMode": "Қоронғи режим",
+    "sound": "Овоз",
+    "premium": "Премиум"
+  },
+  "subscription": {
+    "title": "Премиум обуна",
+    "free": "Бепул",
+    "monthly": "Ойлик",
+    "yearly": "Йиллик",
+    "subscribe": "Обуна бўлиш",
+    "active": "Фаол",
+    "features": "Имкониятлар"
+  },
+  "common": {
+    "loading": "Юкланмоқда...",
+    "error": "Хатолик юз берди",
+    "retry": "Қайта уриниш",
+    "save": "Сақлаш",
+    "cancel": "Бекор қилиш",
+    "back": "Орқага",
+    "offline": "Интернет алоқаси йўқ"
+  }
+}

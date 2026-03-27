@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "title": "OsonPrava — Haydovchilik guvohnomasi imtihoniga tayyorgarlik",
+    "description": "O'zbekistonda haydovchilik guvohnomasi imtihoniga bepul tayyorlaning. 1210+ savol, 61 bilet, imtihon simulyatsiyasi va Oktagon 1v1 rejimi."
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "blog": "Blog",
+    "signs": "Yo'l belgilari",
+    "login": "Kirish"
+  },
+  "hero": {
+    "title": "Haydovchilik guvohnomasiga tayyorlaning",
+    "titleHighlight": "oson va tez",
+    "subtitle": "O'zbekistondagi eng to'liq va bepul haydovchilik imtihoniga tayyorgarlik platformasi. 1210+ savol, real imtihon simulyatsiyasi va do'stlar bilan bellashuv.",
+    "cta": "Boshlash",
+    "ctaTelegram": "Telegram Bot",
+    "rotatingWords": ["oson", "tez", "bepul", "qiziqarli"]
+  },
+  "stats": {
+    "questions": "Savollar",
+    "questionsCount": "1210+",
+    "tickets": "Bilet",
+    "ticketsCount": "61",
+    "accuracy": "Bepul",
+    "accuracyCount": "100%",
+    "languages": "Til",
+    "languagesCount": "3"
+  },
+  "features": {
+    "title": "Imkoniyatlar",
+    "items": [
+      {
+        "title": "Biletlar bo'yicha test",
+        "description": "61 ta biletning har birini alohida yechib, o'z bilimingizni sinab ko'ring.",
+        "icon": "ticket"
+      },
+      {
+        "title": "Mavzular bo'yicha test",
+        "description": "Yo'l harakati qoidalarini mavzularga bo'lib o'rganing.",
+        "icon": "book"
+      },
+      {
+        "title": "Imtihon simulyatsiyasi",
+        "description": "Haqiqiy imtihonga o'xshash sharoitda mashq qiling — 30 savol, 20 daqiqa.",
+        "icon": "timer"
+      },
+      {
+        "title": "Oktagon 1v1",
+        "description": "Do'stlaringiz bilan real vaqtda bellashing va reytingda o'sib boring.",
+        "icon": "swords"
+      }
+    ]
+  },
+  "howItWorks": {
+    "title": "Qanday ishlaydi?",
+    "steps": [
+      {
+        "title": "Ro'yxatdan o'ting",
+        "description": "Telegram bot yoki veb-sayt orqali tez va oson ro'yxatdan o'ting."
+      },
+      {
+        "title": "Test rejimini tanlang",
+        "description": "Biletlar, mavzular, imtihon yoki Oktagon — o'zingizga qulay rejimni tanlang."
+      },
+      {
+        "title": "Imtihondan o'ting",
+        "description": "Yetarlicha mashq qilib, haqiqiy imtihonni muvaffaqiyatli topshiring!"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Ko'p so'raladigan savollar",
+    "items": [
+      {
+        "question": "Haydovchilik guvohnomasi olish uchun necha yosh bo'lishi kerak?",
+        "answer": "O'zbekistonda B toifali haydovchilik guvohnomasini olish uchun kamida 18 yoshda bo'lishingiz kerak. A toifa (mototsikl) uchun ham 18 yosh talab etiladi."
+      },
+      {
+        "question": "Imtihon nechta savoldan iborat?",
+        "answer": "Haydovchilik guvohnomasi nazariy imtihoni 30 ta savoldan iborat. Imtihonni topshirish uchun kamida 27 ta savolga to'g'ri javob berish kerak (90%)."
+      },
+      {
+        "question": "Imtihonga qancha vaqt beriladi?",
+        "answer": "Nazariy imtihon uchun 20 daqiqa vaqt beriladi. Shu vaqt ichida 30 ta savolga javob berishingiz kerak."
+      },
+      {
+        "question": "OsonPrava bepulmi?",
+        "answer": "Ha, OsonPrava to'liq bepul. Barcha testlar, biletlar va imtihon simulyatsiyasidan bepul foydalanishingiz mumkin."
+      },
+      {
+        "question": "Qanday test rejimlari mavjud?",
+        "answer": "OsonPravada 4 xil rejim mavjud: Biletlar bo'yicha test (61 ta bilet), Mavzular bo'yicha test, Imtihon simulyatsiyasi (real imtihon sharoitlari) va Oktagon 1v1 (do'stlar bilan bellashuv)."
+      },
+      {
+        "question": "Telegram botdan qanday foydalanaman?",
+        "answer": "Telegramda @EasyPrava_bot ni qidiring va /start buyrug'ini yuboring. Bot sizga test yechish, natijalarni ko'rish va statistikani kuzatish imkonini beradi."
+      },
+      {
+        "question": "Imtihonda qanday mavzular bo'ladi?",
+        "answer": "Imtihonda yo'l harakati qoidalari, yo'l belgilari, svetofor ishoralari, birinchi yordam ko'rsatish, transport vositasining texnik holati va boshqa mavzular bo'ladi."
+      },
+      {
+        "question": "Nechta xato qilish mumkin?",
+        "answer": "30 ta savoldan 3 tagacha xato qilish mumkin. 4 va undan ko'p xato qilsangiz, imtihon topshirilmagan hisoblanadi va qayta topshirish kerak bo'ladi."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Hoziroq tayyorgarlikni boshlang!",
+    "subtitle": "Minglab foydalanuvchilar OsonPrava yordamida imtihondan muvaffaqiyatli o'tishmoqda.",
+    "button": "Bepul boshlash",
+    "buttonTelegram": "Telegram Bot"
+  },
+  "footer": {
+    "description": "O'zbekistonda haydovchilik guvohnomasi imtihoniga tayyorgarlik platformasi.",
+    "links": "Havolalar",
+    "legal": "Huquqiy",
+    "privacy": "Maxfiylik siyosati",
+    "terms": "Foydalanish shartlari",
+    "social": "Ijtimoiy tarmoqlar",
+    "telegram": "Telegram",
+    "copyright": "Barcha huquqlar himoyalangan."
+  }
+}

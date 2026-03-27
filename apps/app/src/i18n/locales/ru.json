@@ -1,0 +1,109 @@
+{
+  "app": {
+    "name": "OsonPrava",
+    "tagline": "Подготовьтесь к экзамену на водительские права!"
+  },
+  "nav": {
+    "dashboard": "Главная",
+    "tickets": "Билеты",
+    "topics": "Темы",
+    "exam": "Экзамен",
+    "marathon": "Марафон",
+    "smartTest": "Умный тест",
+    "octagon": "Октагон",
+    "mistakes": "Работа над ошибками",
+    "stats": "Статистика",
+    "profile": "Профиль",
+    "settings": "Настройки",
+    "subscription": "Подписка",
+    "leaderboard": "Лидеры",
+    "achievements": "Достижения"
+  },
+  "auth": {
+    "login": "Войти",
+    "loginWithTelegram": "Войти через Telegram",
+    "logout": "Выйти"
+  },
+  "dashboard": {
+    "greeting": "Привет, {name}!",
+    "streak": "Серия {count} дней",
+    "progress": "Общий прогресс",
+    "questionsLearned": "Изученные вопросы",
+    "continueTest": "Продолжить тест",
+    "quickActions": "Быстрые действия"
+  },
+  "test": {
+    "question": "Вопрос",
+    "of": "/",
+    "correct": "Правильно",
+    "wrong": "Неправильно",
+    "next": "Далее",
+    "prev": "Назад",
+    "finish": "Завершить",
+    "result": "Результат",
+    "score": "Баллы",
+    "time": "Время",
+    "tryAgain": "Попробовать снова",
+    "reviewMistakes": "Разбор ошибок",
+    "explanation": "Объяснение",
+    "timeLeft": "Осталось"
+  },
+  "tickets": {
+    "title": "Билеты",
+    "ticket": "Билет",
+    "questions": "вопросов",
+    "notStarted": "Не начат",
+    "inProgress": "В процессе",
+    "completed": "Завершён",
+    "bestScore": "Лучший результат"
+  },
+  "topics": {
+    "title": "Темы",
+    "progress": "Прогресс"
+  },
+  "octagon": {
+    "title": "Октагон",
+    "subtitle": "Онлайн-баттл 1 на 1",
+    "findOpponent": "Найти соперника",
+    "searching": "Поиск соперника...",
+    "vs": "VS",
+    "youWon": "Вы победили!",
+    "youLost": "Вы проиграли",
+    "draw": "Ничья",
+    "playAgain": "Играть снова",
+    "score": "Счёт"
+  },
+  "smartTest": {
+    "title": "Умный тест",
+    "subtitle": "Вопросы по алгоритму SM-2",
+    "learned": "Изучено",
+    "remaining": "Осталось",
+    "start": "Начать"
+  },
+  "profile": {
+    "title": "Профиль",
+    "editProfile": "Редактировать профиль",
+    "language": "Язык",
+    "darkMode": "Тёмная тема",
+    "sound": "Звук",
+    "premium": "Премиум"
+  },
+  "subscription": {
+    "title": "Премиум подписка",
+    "free": "Бесплатно",
+    "monthly": "Месячная",
+    "yearly": "Годовая",
+    "subscribe": "Подписаться",
+    "active": "Активна",
+    "features": "Возможности"
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Произошла ошибка",
+    "retry": "Повторить",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "back": "Назад",
+    "offline": "Нет подключения к интернету"
+  }
+}

@@ -1,0 +1,407 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ======================== USERS ========================
+
+model User {
+  id               Int       @id @default(autoincrement())
+  telegramId       BigInt?   @unique @map("telegram_id")
+  email            String?   @unique
+  username         String?   @unique
+  firstName        String?   @map("first_name")
+  lastName         String?   @map("last_name")
+  avatarUrl        String?   @map("avatar_url")
+  language         Language  @default(UZ_LATIN)
+  role             Role      @default(USER)
+  isPremium        Boolean   @default(false) @map("is_premium")
+  premiumExpiresAt DateTime? @map("premium_expires_at")
+  streak           Int       @default(0)
+  longestStreak    Int       @default(0) @map("longest_streak")
+  lastActiveAt     DateTime? @map("last_active_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  refreshTokens  RefreshToken[]
+  testSessions   TestSession[]
+  questionStats  UserQuestionStat[]
+  achievements   UserAchievement[]
+  octagonPlayers OctagonPlayer[]
+  subscriptions  Subscription[]
+  notifications  Notification[]
+
+  @@map("users")
+}
+
+enum Role {
+  USER
+  PREMIUM
+  BANNED
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum Language {
+  UZ_LATIN
+  UZ_CYRILLIC
+  RU
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int      @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("refresh_tokens")
+}
+
+// ======================== QUESTIONS & TICKETS ========================
+
+model Topic {
+  id             Int        @id @default(autoincrement())
+  nameUz         String     @map("name_uz")
+  nameUzCyr      String     @map("name_uz_cyr")
+  nameRu         String     @map("name_ru")
+  slug           String     @unique
+  orderIndex     Int        @default(0) @map("order_index")
+  questionsCount Int        @default(0) @map("questions_count")
+  isActive       Boolean    @default(true) @map("is_active")
+  createdAt      DateTime   @default(now()) @map("created_at")
+
+  questions Question[]
+
+  @@map("topics")
+}
+
+model Question {
+  id               Int        @id @default(autoincrement())
+  textUz           String     @map("text_uz")
+  textUzCyr        String     @map("text_uz_cyr")
+  textRu           String     @map("text_ru")
+  imageUrl         String?    @map("image_url")
+  explanationUz    String?    @map("explanation_uz")
+  explanationUzCyr String?    @map("explanation_uz_cyr")
+  explanationRu    String?    @map("explanation_ru")
+  audioUrlUz       String?    @map("audio_url_uz")
+  audioUrlRu       String?    @map("audio_url_ru")
+  topicId          Int        @map("topic_id")
+  topic            Topic      @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  difficulty       Difficulty @default(MEDIUM)
+  isActive         Boolean    @default(true) @map("is_active")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
+
+  answers         Answer[]
+  ticketQuestions TicketQuestion[]
+  userStats       UserQuestionStat[]
+
+  @@map("questions")
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model Answer {
+  id         Int      @id @default(autoincrement())
+  textUz     String   @map("text_uz")
+  textUzCyr  String   @map("text_uz_cyr")
+  textRu     String   @map("text_ru")
+  isCorrect  Boolean  @default(false) @map("is_correct")
+  questionId Int      @map("question_id")
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  orderIndex Int      @default(0) @map("order_index")
+
+  @@map("answers")
+}
+
+model Ticket {
+  id             Int      @id @default(autoincrement())
+  number         Int      @unique
+  nameUz         String   @map("name_uz")
+  nameUzCyr      String   @map("name_uz_cyr")
+  nameRu         String   @map("name_ru")
+  questionsCount Int      @default(20) @map("questions_count")
+  isActive       Boolean  @default(true) @map("is_active")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  ticketQuestions TicketQuestion[]
+
+  @@map("tickets")
+}
+
+model TicketQuestion {
+  id         Int      @id @default(autoincrement())
+  ticketId   Int      @map("ticket_id")
+  ticket     Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  questionId Int      @map("question_id")
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  orderIndex Int      @default(0) @map("order_index")
+
+  @@unique([ticketId, questionId])
+  @@map("ticket_questions")
+}
+
+// ======================== TESTING ========================
+
+model TestSession {
+  id             Int       @id @default(autoincrement())
+  userId         Int       @map("user_id")
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type           TestType
+  ticketId       Int?      @map("ticket_id")
+  topicId        Int?      @map("topic_id")
+  totalQuestions  Int       @map("total_questions")
+  correctAnswers Int       @default(0) @map("correct_answers")
+  wrongAnswers   Int       @default(0) @map("wrong_answers")
+  skippedAnswers Int       @default(0) @map("skipped_answers")
+  score          Float     @default(0)
+  isPassed       Boolean   @default(false) @map("is_passed")
+  startedAt      DateTime  @default(now()) @map("started_at")
+  completedAt    DateTime? @map("completed_at")
+  timeSpentSec   Int?      @map("time_spent_sec")
+
+  answers TestAnswer[]
+
+  @@index([userId])
+  @@map("test_sessions")
+}
+
+enum TestType {
+  TICKET
+  TOPIC
+  EXAM
+  MARATHON
+  SMART
+  MISTAKES
+}
+
+model TestAnswer {
+  id               Int         @id @default(autoincrement())
+  testSessionId    Int         @map("test_session_id")
+  testSession      TestSession @relation(fields: [testSessionId], references: [id], onDelete: Cascade)
+  questionId       Int         @map("question_id")
+  selectedAnswerId Int?        @map("selected_answer_id")
+  isCorrect        Boolean?    @map("is_correct")
+  timeSpentSec     Int?        @map("time_spent_sec")
+  answeredAt       DateTime    @default(now()) @map("answered_at")
+
+  @@map("test_answers")
+}
+
+// ======================== SMART TEST (Spaced Repetition) ========================
+
+model UserQuestionStat {
+  id                 Int      @id @default(autoincrement())
+  userId             Int      @map("user_id")
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questionId         Int      @map("question_id")
+  question           Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  timesAnswered      Int      @default(0) @map("times_answered")
+  timesCorrect       Int      @default(0) @map("times_correct")
+  consecutiveCorrect Int      @default(0) @map("consecutive_correct")
+  easeFactor         Float    @default(2.5) @map("ease_factor")
+  interval           Int      @default(1)
+  nextReviewAt       DateTime @default(now()) @map("next_review_at")
+  lastAnsweredAt     DateTime @default(now()) @map("last_answered_at")
+
+  @@unique([userId, questionId])
+  @@index([userId])
+  @@index([nextReviewAt])
+  @@map("user_question_stats")
+}
+
+// ======================== OCTAGON (1v1 Battles) ========================
+
+model OctagonMatch {
+  id             Int           @id @default(autoincrement())
+  status         OctagonStatus @default(WAITING)
+  questionsCount Int           @default(10) @map("questions_count")
+  questionIds    Int[]         @map("question_ids")
+  startedAt      DateTime?     @map("started_at")
+  completedAt    DateTime?     @map("completed_at")
+  winnerId       Int?          @map("winner_id")
+  createdAt      DateTime      @default(now()) @map("created_at")
+
+  players OctagonPlayer[]
+
+  @@map("octagon_matches")
+}
+
+enum OctagonStatus {
+  WAITING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model OctagonPlayer {
+  id           Int          @id @default(autoincrement())
+  matchId      Int          @map("match_id")
+  match        OctagonMatch @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  userId       Int          @map("user_id")
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  score        Int          @default(0)
+  correctCount Int          @default(0) @map("correct_count")
+  avgTimeSec   Float?       @map("avg_time_sec")
+  isWinner     Boolean      @default(false) @map("is_winner")
+
+  @@unique([matchId, userId])
+  @@map("octagon_players")
+}
+
+// ======================== SUBSCRIPTIONS & PAYMENTS ========================
+
+model Subscription {
+  id              Int              @id @default(autoincrement())
+  userId          Int              @map("user_id")
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan            SubscriptionPlan
+  status          SubStatus        @default(ACTIVE)
+  startsAt        DateTime         @map("starts_at")
+  expiresAt       DateTime         @map("expires_at")
+  paymentProvider PaymentProvider  @map("payment_provider")
+  paymentId       String?          @map("payment_id")
+  amount          Int
+  currency        String           @default("UZS")
+  createdAt       DateTime         @default(now()) @map("created_at")
+
+  @@map("subscriptions")
+}
+
+enum SubscriptionPlan {
+  MONTHLY
+  QUARTERLY
+  YEARLY
+  LIFETIME
+}
+
+enum SubStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+enum PaymentProvider {
+  CLICK
+  PAYME
+  UZUM
+  TELEGRAM_STARS
+  MANUAL
+}
+
+// ======================== ACHIEVEMENTS ========================
+
+model Achievement {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  nameUz    String   @map("name_uz")
+  nameUzCyr String   @map("name_uz_cyr")
+  nameRu    String   @map("name_ru")
+  descUz    String   @map("desc_uz")
+  descUzCyr String   @map("desc_uz_cyr")
+  descRu    String   @map("desc_ru")
+  iconUrl   String?  @map("icon_url")
+  condition Json
+  points    Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  users UserAchievement[]
+
+  @@map("achievements")
+}
+
+model UserAchievement {
+  id            Int         @id @default(autoincrement())
+  userId        Int         @map("user_id")
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievementId Int         @map("achievement_id")
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  unlockedAt    DateTime    @default(now()) @map("unlocked_at")
+
+  @@unique([userId, achievementId])
+  @@map("user_achievements")
+}
+
+// ======================== BLOG ========================
+
+model BlogPost {
+  id           Int       @id @default(autoincrement())
+  slug         String    @unique
+  titleUz      String    @map("title_uz")
+  titleUzCyr   String    @map("title_uz_cyr")
+  titleRu      String    @map("title_ru")
+  contentUz    String    @map("content_uz")
+  contentUzCyr String    @map("content_uz_cyr")
+  contentRu    String    @map("content_ru")
+  excerptUz    String?   @map("excerpt_uz")
+  excerptUzCyr String?   @map("excerpt_uz_cyr")
+  excerptRu    String?   @map("excerpt_ru")
+  imageUrl     String?   @map("image_url")
+  category     String
+  tags         String[]
+  isPublished  Boolean   @default(false) @map("is_published")
+  publishedAt  DateTime? @map("published_at")
+  viewCount    Int       @default(0) @map("view_count")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  @@map("blog_posts")
+}
+
+// ======================== ROAD SIGNS ========================
+
+model RoadSign {
+  id         Int          @id @default(autoincrement())
+  code       String       @unique
+  nameUz     String       @map("name_uz")
+  nameUzCyr  String       @map("name_uz_cyr")
+  nameRu     String       @map("name_ru")
+  descUz     String       @map("desc_uz")
+  descUzCyr  String       @map("desc_uz_cyr")
+  descRu     String       @map("desc_ru")
+  imageUrl   String       @map("image_url")
+  category   SignCategory
+  orderIndex Int          @default(0) @map("order_index")
+
+  @@map("road_signs")
+}
+
+enum SignCategory {
+  WARNING
+  PRIORITY
+  PROHIBITION
+  MANDATORY
+  SPECIAL
+  INFORMATION
+  SERVICE
+  ADDITIONAL
+}
+
+// ======================== NOTIFICATIONS ========================
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String
+  titleUz   String   @map("title_uz")
+  titleRu   String   @map("title_ru")
+  bodyUz    String   @map("body_uz")
+  bodyRu    String   @map("body_ru")
+  isRead    Boolean  @default(false) @map("is_read")
+  data      Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("notifications")
+}

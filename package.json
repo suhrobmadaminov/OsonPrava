@@ -1,0 +1,25 @@
+{
+  "name": "osonprava",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:api": "pnpm --filter @osonprava/api dev",
+    "dev:web": "pnpm --filter @osonprava/web dev",
+    "dev:app": "pnpm --filter @osonprava/app dev",
+    "dev:bot": "pnpm --filter @osonprava/bot dev",
+    "build": "turbo run build",
+    "build:api": "pnpm --filter @osonprava/api build",
+    "build:web": "pnpm --filter @osonprava/web build",
+    "build:app": "pnpm --filter @osonprava/app build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "db:migrate": "pnpm --filter @osonprava/api prisma migrate dev",
+    "db:push": "pnpm --filter @osonprava/api prisma db push",
+    "db:seed": "pnpm --filter @osonprava/api prisma db seed",
+    "db:studio": "pnpm --filter @osonprava/api prisma studio"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

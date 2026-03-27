@@ -1,0 +1,109 @@
+{
+  "app": {
+    "name": "OsonPrava",
+    "tagline": "Haydovchilik guvohnomasi imtihoniga tayyorlaning!"
+  },
+  "nav": {
+    "dashboard": "Bosh sahifa",
+    "tickets": "Biletlar",
+    "topics": "Mavzular",
+    "exam": "Imtihon",
+    "marathon": "Marafon",
+    "smartTest": "Aqlli test",
+    "octagon": "Oktagon",
+    "mistakes": "Xatolar ustida ishlash",
+    "stats": "Statistika",
+    "profile": "Profil",
+    "settings": "Sozlamalar",
+    "subscription": "Obuna",
+    "leaderboard": "Liderlar",
+    "achievements": "Yutuqlar"
+  },
+  "auth": {
+    "login": "Kirish",
+    "loginWithTelegram": "Telegram orqali kirish",
+    "logout": "Chiqish"
+  },
+  "dashboard": {
+    "greeting": "Salom, {name}!",
+    "streak": "{count} kunlik streak",
+    "progress": "Umumiy progress",
+    "questionsLearned": "O'rganilgan savollar",
+    "continueTest": "Testni davom ettirish",
+    "quickActions": "Tezkor harakatlar"
+  },
+  "test": {
+    "question": "Savol",
+    "of": "/",
+    "correct": "To'g'ri",
+    "wrong": "Noto'g'ri",
+    "next": "Keyingi",
+    "prev": "Oldingi",
+    "finish": "Tugatish",
+    "result": "Natija",
+    "score": "Ball",
+    "time": "Vaqt",
+    "tryAgain": "Qayta urinish",
+    "reviewMistakes": "Xatolarni ko'rish",
+    "explanation": "Tushuntirish",
+    "timeLeft": "Qolgan vaqt"
+  },
+  "tickets": {
+    "title": "Biletlar",
+    "ticket": "Bilet",
+    "questions": "ta savol",
+    "notStarted": "Boshlanmagan",
+    "inProgress": "Jarayonda",
+    "completed": "Tugatilgan",
+    "bestScore": "Eng yaxshi natija"
+  },
+  "topics": {
+    "title": "Mavzular",
+    "progress": "Progress"
+  },
+  "octagon": {
+    "title": "Oktagon",
+    "subtitle": "1 ga 1 onlayn bellashuv",
+    "findOpponent": "Raqib topish",
+    "searching": "Raqib qidirilmoqda...",
+    "vs": "VS",
+    "youWon": "Siz yutdingiz!",
+    "youLost": "Siz yutqazdingiz",
+    "draw": "Durrang",
+    "playAgain": "Yana o'ynash",
+    "score": "Hisobni"
+  },
+  "smartTest": {
+    "title": "Aqlli test",
+    "subtitle": "SM-2 algoritmi asosida savollar",
+    "learned": "O'rganilgan",
+    "remaining": "Qolgan",
+    "start": "Boshlash"
+  },
+  "profile": {
+    "title": "Profil",
+    "editProfile": "Profilni tahrirlash",
+    "language": "Til",
+    "darkMode": "Qorong'i rejim",
+    "sound": "Ovoz",
+    "premium": "Premium"
+  },
+  "subscription": {
+    "title": "Premium obuna",
+    "free": "Bepul",
+    "monthly": "Oylik",
+    "yearly": "Yillik",
+    "subscribe": "Obuna bo'lish",
+    "active": "Faol",
+    "features": "Imkoniyatlar"
+  },
+  "common": {
+    "loading": "Yuklanmoqda...",
+    "error": "Xatolik yuz berdi",
+    "retry": "Qayta urinish",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "back": "Orqaga",
+    "offline": "Internet aloqasi yo'q"
+  }
+}

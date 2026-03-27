@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-nunito: 'Nunito', sans-serif;
+    --duo-green: #58CC02;
+    --duo-green-dark: #4CAD01;
+    --duo-blue: #1CB0F6;
+    --duo-red: #FF4B4B;
+    --duo-purple: #CE82FF;
+    --duo-yellow: #FFC800;
+    --duo-orange: #FF9600;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 antialiased;
+    font-family: var(--font-nunito), sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-2xl bg-duo-green px-8 py-4 text-lg font-bold text-white shadow-[0_4px_0_0_#4CAD01] transition-all hover:brightness-110 active:translate-y-1 active:shadow-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 text-lg font-bold text-gray-700 shadow-[0_4px_0_0_#e5e7eb] transition-all hover:bg-gray-50 active:translate-y-1 active:shadow-none;
+  }
+
+  .btn-telegram {
+    @apply inline-flex items-center justify-center rounded-2xl bg-duo-blue px-8 py-4 text-lg font-bold text-white shadow-[0_4px_0_0_#1A9FDE] transition-all hover:brightness-110 active:translate-y-1 active:shadow-none;
+  }
+
+  .card-duo {
+    @apply rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-[0_4px_0_0_#e5e7eb] transition-all hover:-translate-y-1 hover:shadow-[0_6px_0_0_#e5e7eb];
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
