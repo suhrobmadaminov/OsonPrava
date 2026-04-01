@@ -7,13 +7,29 @@ import { Star, Quote } from 'lucide-react';
 export function TestimonialsSection() {
   const t = useTranslations('testimonials');
 
-  const items = Array.from({ length: 3 }, (_, i) => ({
-    name: t(`items.${i}.name`),
-    location: t(`items.${i}.location`),
-    text: t(`items.${i}.text`),
-    rating: parseInt(t(`items.${i}.rating`)),
-    result: t(`items.${i}.result`),
-  }));
+  const items = [
+    {
+      name: t('items.0.name'),
+      location: t('items.0.location'),
+      text: t('items.0.text'),
+      rating: 5,
+      result: t('items.0.result'),
+    },
+    {
+      name: t('items.1.name'),
+      location: t('items.1.location'),
+      text: t('items.1.text'),
+      rating: 5,
+      result: t('items.1.result'),
+    },
+    {
+      name: t('items.2.name'),
+      location: t('items.2.location'),
+      text: t('items.2.text'),
+      rating: 5,
+      result: t('items.2.result'),
+    },
+  ];
 
   return (
     <section className="bg-gray-50 px-4 py-20 sm:px-6 lg:px-8">
