@@ -10,12 +10,12 @@
     "login": "Kirish"
   },
   "hero": {
-    "title": "Haydovchilik guvohnomasiga tayyorlaning",
-    "titleHighlight": "oson va tez",
-    "subtitle": "O'zbekistondagi eng to'liq va bepul haydovchilik imtihoniga tayyorgarlik platformasi. 1210+ savol, real imtihon simulyatsiyasi va do'stlar bilan bellashuv.",
-    "cta": "Boshlash",
+    "title": "'Prava'ni o'ynab oling!",
+    "subtitle": "O'zbekistonda haydovchilik guvohnomasi olish uchun eng qulay test ilovasi. Smart o'rganish tizimi, 1210+ savollar, offline rejim.",
+    "cta": "Hozir boshlash",
     "ctaTelegram": "Telegram Bot",
-    "rotatingWords": ["oson", "tez", "bepul", "qiziqarli"]
+    "rotatingWords": ["oson", "tez", "bepul", "qiziqarli"],
+    "freeBadge": "Bepul va reklama yo'q"
   },
   "stats": {
     "questions": "Savollar",
@@ -106,11 +106,73 @@
       }
     ]
   },
+  "comparison": {
+    "title": "Tariflar",
+    "subtitle": "O'zingizga mos reja tanlang",
+    "free": {
+      "name": "Bepul",
+      "price": "0 so'm",
+      "period": "abadiy bepul",
+      "features": [
+        "1210+ savol",
+        "61 bilet",
+        "Imtihon simulyatsiyasi",
+        "Oktagon 1v1",
+        "Reklamasiz",
+        "Offline rejim"
+      ],
+      "button": "Bepul boshlash",
+      "popular": false
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "29,900 so'm",
+      "period": "oyiga",
+      "features": [
+        "Barcha bepul imkoniyatlar",
+        "Ovozli tushuntirishlar",
+        "Maxsus test (AI)",
+        "Kengaytirilgan statistika",
+        "Xatolar ustida ishlash",
+        "Prioritet yordam"
+      ],
+      "button": "Premium obuna",
+      "popular": true
+    }
+  },
+  "testimonials": {
+    "title": "Muvaffaqiyat hikoyalari",
+    "subtitle": "Minglab foydalanuvchilar OsonPrava yordamida imtihondan o'tishdi",
+    "items": [
+      {
+        "name": "Azizbek T.",
+        "location": "Toshkent",
+        "text": "2 haftada tayyorgarlik ko'rdim. Imtihondan 100% natija bilan topshirdim! Ovozli tushuntirishlar juda foydali.",
+        "rating": 5,
+        "result": "100% natija"
+      },
+      {
+        "name": "Malika K.",
+        "location": "Samarqand",
+        "text": "Oktagon rejimi do'stlarim bilan bellashish uchun zo'r. Qiziqarli va samarali o'rganish!",
+        "rating": 5,
+        "result": "2 haftada"
+      },
+      {
+        "name": "Javohir A.",
+        "location": "Namangan",
+        "text": "Bepul ekanligiga ishonmadim. Lekin haqiqatan ham barcha imkoniyatlar bepul. Tavsiya qilaman!",
+        "rating": 5,
+        "result": "Bepul"
+      }
+    ]
+  },
   "cta": {
     "title": "Hoziroq tayyorgarlikni boshlang!",
-    "subtitle": "Minglab foydalanuvchilar OsonPrava yordamida imtihondan muvaffaqiyatli o'tishmoqda.",
+    "subtitle": "10,000+ foydalanuvchilar OsonPrava yordamida imtihondan muvaffaqiyatli o'tishmoqda.",
     "button": "Bepul boshlash",
-    "buttonTelegram": "Telegram Bot"
+    "buttonTelegram": "Telegram Bot",
+    "noRegistration": "Ro'yxatdan o'tish shart emas"
   },
   "footer": {
     "description": "O'zbekistonda haydovchilik guvohnomasi imtihoniga tayyorgarlik platformasi.",

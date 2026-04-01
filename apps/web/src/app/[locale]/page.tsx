@@ -5,6 +5,8 @@ import { HeroSection } from '@/components/home/HeroSection';
 import { StatsSection } from '@/components/home/StatsSection';
 import { FeaturesSection } from '@/components/home/FeaturesSection';
 import { HowItWorks } from '@/components/home/HowItWorks';
+import { ComparisonSection } from '@/components/home/ComparisonSection';
+import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 import { FAQ } from '@/components/home/FAQ';
 import { CTA } from '@/components/home/CTA';
 
@@ -49,6 +51,8 @@ export default function HomePage() {
       <StatsSection />
       <FeaturesSection />
       <HowItWorks />
+      <ComparisonSection />
+      <TestimonialsSection />
       <FAQ />
       <CTA />
     </>

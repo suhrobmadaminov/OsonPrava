@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { APP_URL, TELEGRAM_BOT } from '@/lib/constants';
+import { Check } from 'lucide-react';
 
 export function CTA() {
   const t = useTranslations('cta');
@@ -19,6 +20,23 @@ export function CTA() {
         <p className="mx-auto mt-4 max-w-xl text-lg font-semibold text-white/80">
           {t('subtitle')}
         </p>
+        
+        {/* Features checklist */}
+        <div className="mx-auto mt-6 flex max-w-lg flex-wrap items-center justify-center gap-3 text-sm font-semibold text-white/90">
+          <div className="flex items-center gap-1.5">
+            <Check className="h-4 w-4" />
+            <span>1210+ savol</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="h-4 w-4" />
+            <span>Bepul</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Check className="h-4 w-4" />
+            <span>Reklamasiz</span>
+          </div>
+        </div>
+
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a
             href={APP_URL}
@@ -38,6 +56,11 @@ export function CTA() {
             {t('buttonTelegram')}
           </a>
         </div>
+
+        {/* No registration note */}
+        <p className="mx-auto mt-6 text-sm font-semibold text-white/70">
+          ✓ {t('noRegistration')}
+        </p>
       </motion.div>
     </section>
   );

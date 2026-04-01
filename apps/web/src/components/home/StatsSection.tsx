@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, useInView } from 'framer-motion';
-import { HelpCircle, Ticket, BadgeCheck, Languages } from 'lucide-react';
 
 function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -35,13 +34,6 @@ function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: str
   );
 }
 
-const statColors = [
-  { bg: 'bg-duo-green/10', text: 'text-duo-green', icon: HelpCircle },
-  { bg: 'bg-duo-blue/10', text: 'text-duo-blue', icon: Ticket },
-  { bg: 'bg-duo-red/10', text: 'text-duo-red', icon: BadgeCheck },
-  { bg: 'bg-duo-purple/10', text: 'text-duo-purple', icon: Languages },
-];
-
 export function StatsSection() {
   const t = useTranslations('stats');
 
@@ -53,33 +45,26 @@ export function StatsSection() {
   ];
 
   return (
-    <section className="bg-gray-50 px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-          {stats.map((stat, i) => {
-            const color = statColors[i];
-            const Icon = color.icon;
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="card-duo flex flex-col items-center p-6 text-center"
-              >
-                <div className={`mb-3 rounded-xl ${color.bg} p-3`}>
-                  <Icon className={`h-6 w-6 ${color.text}`} />
-                </div>
-                <span className={`text-3xl font-extrabold ${color.text} sm:text-4xl`}>
-                  <AnimatedCounter target={stat.count} suffix={stat.suffix} />
-                </span>
-                <span className="mt-1 text-sm font-bold uppercase tracking-wide text-gray-500">
-                  {stat.label}
-                </span>
-              </motion.div>
-            );
-          })}
+    <section className="bg-white px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-4">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="flex flex-col items-center rounded-3xl bg-gray-50 p-6 sm:p-8"
+            >
+              <span className="text-4xl font-black text-duo-green sm:text-5xl">
+                <AnimatedCounter target={stat.count} suffix={stat.suffix} />
+              </span>
+              <span className="mt-2 text-sm font-bold uppercase tracking-wide text-gray-500 sm:text-base">
+                {stat.label}
+              </span>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
