@@ -4,10 +4,10 @@
 nixPkgs = ["nodejs_20"]
 
 [phases.install]
-cmds = ["npm install -g pnpm@9.0.0 && pnpm install --no-frozen-lockfile"]
+cmds = ["npm install -g pnpm@9.0.0 && npx pnpm install --no-frozen-lockfile"]
 
 [phases.build]
-cmds = ["pnpm --filter @osonprava/web build"]
+cmds = ["npx pnpm --filter @osonprava/web build"]
 
 [start]
-cmd = "pnpm start:web"
+cmd = "npx pnpm start:web"
