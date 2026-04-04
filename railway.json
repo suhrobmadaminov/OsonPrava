@@ -2,7 +2,7 @@
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "cd apps/api && pnpm install --no-frozen-lockfile && pnpm prisma generate && pnpm build",
+    "buildCommand": "cd apps/api && npm install && npx prisma generate && npx nest build",
     "watchPatterns": [
       "apps/api/src/**/*",
       "apps/api/prisma/**/*",
@@ -12,7 +12,7 @@
     ]
   },
   "deploy": {
-    "startCommand": "cd apps/api && npx prisma migrate deploy && node dist/main",
+    "startCommand": "cd apps/api && npx prisma migrate deploy && node dist/main.js",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10,
     "healthcheckPath": "/api/v1/health",
