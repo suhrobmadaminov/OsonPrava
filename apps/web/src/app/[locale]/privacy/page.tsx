@@ -57,7 +57,7 @@ export default function PrivacyPage() {
         </h2>
         <p>
           Maxfiylik siyosati bo&apos;yicha savollaringiz bo&apos;lsa, bizga Telegram
-          orqali murojaat qiling: @EasyPrava_bot
+          orqali murojaat qiling: @OsonPravaBot
         </p>
       </div>
     </div>

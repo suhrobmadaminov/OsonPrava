@@ -18,7 +18,7 @@ export function CTA() {
       >
         <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Hoziroq tayyorgarlikni boshlang!</h2>
         <p className="mx-auto mt-4 max-w-xl text-lg font-semibold text-white/80">
-          10,000+ foydalanuvchilar EasyPrava yordamida imtihondan muvaffaqiyatli o'tishmoqda.
+          10,000+ foydalanuvchilar OsonPrava yordamida imtihondan muvaffaqiyatli o'tishmoqda.
         </p>
 
         {/* Features checklist */}

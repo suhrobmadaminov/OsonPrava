@@ -291,7 +291,7 @@ function getPremiumKeyboard(lang = 'uz') {
 
 // ======================== MESSAGES ========================
 const welcomeMessages = {
-  uz: `🚗 <b>OsonPrava</b>ga xush kelibsiz!
+  uz: `🚗 <b>EasyPrava</b>ga xush kelibsiz!
 
 Haydovchilik guvohnomasi imtihoniga tayyorlaning:
 
@@ -303,7 +303,7 @@ Haydovchilik guvohnomasi imtihoniga tayyorlaning:
 
 Boshlash uchun pastdagi tugmalardan foydalaning! 👇`,
 
-  ru: `🚗 Добро пожаловать в <b>OsonPrava</b>!
+  ru: `🚗 Добро пожаловать в <b>EasyPrava</b>!
 
 Подготовьтесь к экзамену на водительские права:
 
@@ -315,7 +315,7 @@ Boshlash uchun pastdagi tugmalardan foydalaning! 👇`,
 
 Используйте кнопки ниже для начала! 👇`,
 
-  kr: `🚗 <b>ОсонПрава</b>га хуш келибсиз!
+  kr: `🚗 <b>ЕаsyПрава</b>га хуш келибсиз!
 
 Ҳайдовчилик гувоҳномаси имтиҳонига тайёрланинг:
 
@@ -343,7 +343,7 @@ Mavjud buyruqlar:
 
 📱 To'liq versiya uchun <b>Ilovaga o'tish</b> tugmasini bosing.
 
-Savollar uchun: @OsonPravaSupport`,
+Savollar uchun: @EasyPravaSupport`,
 
   ru: `❓ <b>Помощь</b>
 
@@ -359,7 +359,7 @@ Savollar uchun: @OsonPravaSupport`,
 
 📱 Для полной версии нажмите <b>Перейти в приложение</b>.
 
-Вопросы: @OsonPravaSupport`,
+Вопросы: @EasyPravaSupport`,
 
   kr: `❓ <b>Ёрдам</b>
 
@@ -375,11 +375,11 @@ Savollar uchun: @OsonPravaSupport`,
 
 📱 Тўлиқ версия учун <b>Иловага ўтиш</b> тугмасини босинг.
 
-Саволлар учун: @OsonPravaSupport`,
+Саволлар учун: @EasyPravaSupport`,
 };
 
 const premiumMessages = {
-  uz: `👑 <b>OsonPrava Premium</b>
+  uz: `👑 <b>EasyPrava Premium</b>
 
 Premium imkoniyatlar:
 🧠 Aqlli test (SM-2 algoritmi)
@@ -390,7 +390,7 @@ Premium imkoniyatlar:
 
 Tarifni tanlang:`,
 
-  ru: `👑 <b>OsonPrava Premium</b>
+  ru: `👑 <b>EasyPrava Premium</b>
 
 Премиум возможности:
 🧠 Умный тест (алгоритм SM-2)
@@ -401,7 +401,7 @@ Tarifni tanlang:`,
 
 Выберите тариф:`,
 
-  kr: `👑 <b>ОсонПрава Премиум</b>
+  kr: `👑 <b>ЕаsyПрава Премиум</b>
 
 Премиум имкониятлар:
 🧠 Ақлли тест (SM-2 алгоритми)
@@ -627,10 +627,10 @@ bot.hears(/⚙️.*(Sozla|Настрой|Созла)/i, async (ctx) => {
 
 // ======================== CALLBACK HANDLERS ========================
 const starsPrices = {
-  '1month': { amount: 50, label: 'OsonPrava Premium — 1 oy' },
-  '3months': { amount: 125, label: 'OsonPrava Premium — 3 oy' },
-  '1year': { amount: 375, label: 'OsonPrava Premium — 1 yil' },
-  'forever': { amount: 750, label: 'OsonPrava Premium — Doimiy' },
+  '1month': { amount: 50, label: 'EasyPrava Premium — 1 oy' },
+  '3months': { amount: 125, label: 'EasyPrava Premium — 3 oy' },
+  '1year': { amount: 375, label: 'EasyPrava Premium — 1 yil' },
+  'forever': { amount: 750, label: 'EasyPrava Premium — Doimiy' },
 };
 
 bot.on('callback_query:data', async (ctx) => {
