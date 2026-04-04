@@ -6,7 +6,7 @@ Bu qo'llanma OsonPrava loyihasini Railway platformasida ishga tushirish uchun.
 
 ```
 ┌─────────────────────┐     ┌─────────────────────┐     ┌─────────────────────┐
-│  OsonPrava Backend  │     │    OsonPravaBot     │     │  OsonPrava Web      │
+│  OsonPrava Backend  │     │   EasyPrava Bot     │     │  OsonPrava Web      │
 │  (NestJS API)       │     │  (Telegram Bot)     │     │  (Next.js)          │
 │  Port: 3001         │     │  Port: 3002         │     │  Port: 3000         │
 └──────────┬──────────┘     └──────────┬──────────┘     └─────────────────────┘

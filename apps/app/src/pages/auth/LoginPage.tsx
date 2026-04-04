@@ -47,13 +47,26 @@ export default function LoginPage() {
       return;
     }
 
-    // Telegram WebApp check
+    // Telegram WebApp auto-login attempt (with timeout)
     const tg = (window as unknown as Record<string, unknown>).Telegram as Record<string, Record<string, string>> | undefined;
     if (tg?.WebApp?.initData) {
-      authService.loginViaTelegramBot(tg.WebApp.initData).then((res) => {
-        login(res.user as Parameters<typeof login>[0], res.accessToken, res.refreshToken);
-        navigate('/', { replace: true });
-      });
+      const authTimeout = setTimeout(() => {
+        // If auth takes too long, show login page
+        toast.info('Telegram orqali kirish muvaffaqiyatsiz. Iltimos, ro\'yxatdan o\'ting.', { duration: 5000 });
+      }, 5000);
+
+      authService.loginViaTelegramBot(tg.WebApp.initData)
+        .then((res) => {
+          clearTimeout(authTimeout);
+          login(res.user as Parameters<typeof login>[0], res.accessToken, res.refreshToken);
+          toast.success('Xush kelibsiz!');
+          navigate('/', { replace: true });
+        })
+        .catch(() => {
+          clearTimeout(authTimeout);
+          // API is unavailable - show login page with Telegram hint
+          toast.info('Avval ro\'yxatdan o\'ting yoki email bilan kiring', { duration: 5000 });
+        });
     }
   }, [isAuthenticated, navigate, login]);
 
