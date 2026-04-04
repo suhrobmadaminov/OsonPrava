@@ -24,10 +24,10 @@ export function Header() {
         {/* Logo */}
         <Link href={`/${locale}`} className="flex items-center gap-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-duo-green">
-            <span className="text-xl font-extrabold text-white">O</span>
+            <span className="text-xl font-extrabold text-white">E</span>
           </div>
           <span className="text-xl font-extrabold text-gray-900">
-            Oson<span className="text-duo-green">Prava</span>
+            Easy<span className="text-duo-green">Prava</span>
           </span>
         </Link>
 
@@ -45,14 +45,20 @@ export function Header() {
         </nav>
 
         {/* Desktop Actions */}
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden items-center gap-3 md:flex">
           <LanguageSwitcher />
-          <a
-            href={APP_URL}
-            className="rounded-2xl bg-duo-green px-6 py-2.5 text-sm font-bold text-white shadow-[0_3px_0_0_#4CAD01] transition-all hover:brightness-110 active:translate-y-0.5 active:shadow-none"
+          <Link
+            href={`/${locale}/auth/login`}
+            className="rounded-xl border-2 border-duo-green px-5 py-2 text-sm font-bold text-duo-green transition-all hover:bg-duo-green/10"
+          >
+            Kirish
+          </Link>
+          <Link
+            href={`/${locale}/auth/register`}
+            className="rounded-2xl bg-duo-green px-5 py-2 text-sm font-bold text-white shadow-[0_3px_0_0_#4CAD01] transition-all hover:brightness-110 active:translate-y-0.5 active:shadow-none"
           >
             {t('login')}
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -79,16 +85,23 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <div className="border-t border-gray-100 pt-4 mt-2 flex flex-col gap-3">
+              <Link
+                href={`/${locale}/auth/login`}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-xl border-2 border-duo-green px-4 py-3 text-center text-sm font-bold text-duo-green transition-all hover:bg-duo-green/10"
+              >
+                Kirish
+              </Link>
+              <Link
+                href={`/${locale}/auth/register`}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-2xl bg-duo-green px-4 py-3 text-center text-sm font-bold text-white shadow-[0_3px_0_0_#4CAD01] transition-all hover:brightness-110"
+              >
+                {t('login')}
+              </Link>
+            </div>
           </nav>
-          <div className="flex items-center gap-4 border-t border-gray-100 pt-4">
-            <LanguageSwitcher />
-            <a
-              href={APP_URL}
-              className="flex-1 rounded-2xl bg-duo-green px-6 py-3 text-center text-sm font-bold text-white shadow-[0_3px_0_0_#4CAD01] transition-all hover:brightness-110"
-            >
-              {t('login')}
-            </a>
-          </div>
         </div>
       )}
     </header>

@@ -17,10 +17,10 @@ export function Footer() {
           <div className="md:col-span-1">
             <Link href={`/${locale}`} className="flex items-center gap-2">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-duo-green">
-                <span className="text-xl font-extrabold text-white">O</span>
+                <span className="text-xl font-extrabold text-white">E</span>
               </div>
               <span className="text-xl font-extrabold text-gray-900">
-                Oson<span className="text-duo-green">Prava</span>
+                Easy<span className="text-duo-green">Prava</span>
               </span>
             </Link>
             <p className="mt-4 text-sm text-gray-500">{t('description')}</p>

@@ -1,11 +1,8 @@
-[phases.setup]
-nixPkgs = ["nodejs_20"]
-
 [phases.install]
-cmds = ["npx --yes pnpm@9.0.0 install --no-frozen-lockfile"]
+cmds = ["npm install -g pnpm", "pnpm install"]
 
 [phases.build]
-cmds = ["npx --yes pnpm@9.0.0 --filter @osonprava/api build", "npx --yes pnpm@9.0.0 --filter @osonprava/api exec prisma generate"]
+cmds = ["pnpm --filter @osonprava/api build"]
 
 [start]
-cmd = "npx --yes pnpm@9.0.0 db:migrate:deploy && npx --yes pnpm@9.0.0 start:api"
+cmd = "pnpm --filter @osonprava/api start"

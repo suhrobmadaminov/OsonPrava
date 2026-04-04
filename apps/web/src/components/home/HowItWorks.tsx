@@ -1,18 +1,32 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 
 const stepColors = ['bg-duo-green', 'bg-duo-blue', 'bg-duo-yellow'];
 const stepTextColors = ['text-duo-green', 'text-duo-blue', 'text-duo-yellow'];
 
-export function HowItWorks() {
-  const t = useTranslations('howItWorks');
+const stepsData = {
+  uz: [
+    { title: "Ro'yxatdan o'ting", description: "Email yoki Telegram orqali tez va oson ro'yxatdan o'ting." },
+    { title: "Test rejimini tanlang", description: "Biletlar, mavzular, imtihon yoki Oktagon — o'zingizga qulay rejimni tanlang." },
+    { title: "Imtihondan o'ting", description: "Yetarlicha mashq qilib, haqiqiy imtihonni muvaffaqiyatli topshiring!" },
+  ],
+  ru: [
+    { title: "Зарегистрируйтесь", description: "Быстрая и простая регистрация через email или Telegram." },
+    { title: "Выберите режим теста", description: "Билеты, темы, экзамен или Октагон — выберите удобный режим." },
+    { title: "Сдайте экзамен", description: "Достаточно потренировавшись, успешно сдайте реальный экзамен!" },
+  ],
+  kr: [
+    { title: "Рўйхатдан ўтинг", description: "Email ёки Telegram орқали тез ва осон рўйхатдан ўтинг." },
+    { title: "Тест режимини танланг", description: "Билетлар, мавзулар, имтиҳон ёки Октагон — ўзингизга қулай режимни танланг." },
+    { title: "Имтиҳондан ўтинг", description: "Етарлича машқ қилиб, ҳақикий имтиҳонни муваффақиятли топширинг!" },
+  ],
+};
 
-  const steps = [0, 1, 2].map((i) => ({
-    title: t(`steps.${i}.title`),
-    description: t(`steps.${i}.description`),
-  }));
+export function HowItWorks() {
+  const locale = useLocale();
+  const steps = stepsData[locale as keyof typeof stepsData] || stepsData.uz;
 
   return (
     <section className="bg-gray-50 px-4 py-20 sm:px-6 lg:px-8">
@@ -23,7 +37,7 @@ export function HowItWorks() {
           viewport={{ once: true }}
           className="mb-16 text-center text-3xl font-extrabold text-gray-900 sm:text-4xl"
         >
-          {t('title')}
+          Qanday ishlaydi?
         </motion.h2>
 
         <div className="relative">

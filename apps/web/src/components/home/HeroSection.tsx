@@ -1,22 +1,22 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { APP_URL, TELEGRAM_BOT } from '@/lib/constants';
-import { Star, ArrowRight, Download } from 'lucide-react';
+import { Star, ArrowRight } from 'lucide-react';
 
 export function HeroSection() {
-  const t = useTranslations('hero');
-  const words: string[] = t.raw('rotatingWords');
+  const locale = useLocale();
+  const rotatingWords = ['oson', 'tez', 'bepul', 'qiziqarli'];
   const [currentWord, setCurrentWord] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentWord((prev) => (prev + 1) % words.length);
+      setCurrentWord((prev) => (prev + 1) % rotatingWords.length);
     }, 2500);
     return () => clearInterval(interval);
-  }, [words.length]);
+  }, [rotatingWords.length]);
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-green-50 via-white to-white px-4 pb-16 pt-12 sm:px-6 lg:px-8 lg:pt-20">
@@ -64,7 +64,7 @@ export function HeroSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mx-auto mt-6 max-w-2xl text-lg text-gray-600 sm:text-xl"
         >
-          O&apos;zbekistonda haydovchilik guvohnomasi olish uchun eng qulay test ilovasi. 
+          O&apos;zbekistonda haydovchilik guvohnomasi olish uchun eng qulay test ilovasi.
           Smart o&apos;rganish tizimi, 1210+ savollar, offline rejim.
         </motion.p>
 
@@ -76,17 +76,22 @@ export function HeroSection() {
           className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
           <a
-            href={APP_URL}
+            href={`/${locale}/auth/register`}
             className="group inline-flex items-center gap-2 rounded-2xl bg-duo-green px-8 py-4 text-lg font-bold text-white shadow-[0_4px_0_0_#4CAD01] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_#4CAD01] active:translate-y-0 active:shadow-[0_2px_0_0_#4CAD01]"
           >
-            {t('cta')}
+            Hoziroq boshlash
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
           </a>
           <a
-            href="#features"
-            className="inline-flex items-center gap-2 rounded-2xl bg-duo-blue px-8 py-4 text-lg font-bold text-white shadow-[0_4px_0_0_#188ACC] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_#188ACC] active:translate-y-0 active:shadow-[0_2px_0_0_#188ACC]"
+            href={TELEGRAM_BOT}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-2xl bg-[#2AABEE] px-8 py-4 text-lg font-bold text-white shadow-[0_4px_0_0_#1f8ec4] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_#1f8ec4] active:translate-y-0 active:shadow-[0_2px_0_0_#1f8ec4]"
           >
-            Batafsil
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
+            Telegram orqali kirish
           </a>
         </motion.div>
 
