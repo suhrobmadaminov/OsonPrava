@@ -1,9 +1,10 @@
 [build]
 builder = "NIXPACKS"
+buildCommand = "npx --yes pnpm@9.0.0 --filter @osonprava/api build && npx --yes pnpm@9.0.0 --filter @osonprava/api exec prisma generate"
 
 [deploy]
 numReplicas = 1
-startCommand = "pnpm db:migrate:deploy && pnpm start:api"
+startCommand = "npx --yes pnpm@9.0.0 db:migrate:deploy && npx --yes pnpm@9.0.0 start:api"
 healthcheckPath = "/api/v1/health"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
