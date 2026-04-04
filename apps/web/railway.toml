@@ -3,7 +3,8 @@ builder = "NIXPACKS"
 
 [deploy]
 numReplicas = 1
-startCommand = "pnpm --filter @osonprava/web start"
+startCommand = "pnpm start:web"
 healthcheckPath = "/"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10

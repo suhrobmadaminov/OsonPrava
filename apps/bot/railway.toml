@@ -3,5 +3,6 @@ builder = "NIXPACKS"
 
 [deploy]
 numReplicas = 1
-startCommand = "pnpm --filter @osonprava/bot start"
+startCommand = "pnpm start:bot"
 restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10

@@ -10,4 +10,4 @@ cmds = ["corepack enable && pnpm install --frozen-lockfile"]
 cmds = ["pnpm --filter @osonprava/bot build"]
 
 [start]
-cmd = "pnpm --filter @osonprava/bot start"
+cmd = "pnpm start:bot"

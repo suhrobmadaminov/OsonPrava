@@ -1,6 +1,5 @@
-# Procfile for Railway fallback deployment
-# Railway uses railway.toml instead, but this is kept for compatibility
+# Procfile for Railway deployment
 
-api: pnpm --filter @osonprava/api start
-bot: pnpm --filter @osonprava/bot start
-web: pnpm --filter @osonprava/web start
+osonprava-api: pnpm db:migrate:deploy && pnpm start:api
+osonprava-bot: pnpm start:bot
+osonprava-web: pnpm start:web

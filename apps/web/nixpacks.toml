@@ -10,4 +10,4 @@ cmds = ["corepack enable && pnpm install --frozen-lockfile"]
 cmds = ["pnpm --filter @osonprava/web build"]
 
 [start]
-cmd = "pnpm --filter @osonprava/web start"
+cmd = "pnpm start:web"

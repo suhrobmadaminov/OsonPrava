@@ -10,4 +10,4 @@ cmds = ["corepack enable && pnpm install --frozen-lockfile"]
 cmds = ["pnpm --filter @osonprava/api build", "pnpm --filter @osonprava/api exec prisma generate"]
 
 [start]
-cmd = "npx prisma migrate deploy && pnpm --filter @osonprava/api start"
+cmd = "pnpm db:migrate:deploy && pnpm start:api"

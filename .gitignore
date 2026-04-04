@@ -15,3 +15,7 @@ coverage/
 !railway.json
 !*/railway.toml
 !*/nixpacks.toml
+
+# Docker (not used in Railway)
+Dockerfile
+Dockerfile.*
