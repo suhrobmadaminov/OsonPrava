@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "npx --yes pnpm@9.0.0 build && npx --yes pnpm@9.0.0 exec prisma generate"
+buildCommand = "npx --yes pnpm@9.0.0 exec prisma generate && npx --yes pnpm@9.0.0 build"
 
 [deploy]
 numReplicas = 1
