@@ -51,7 +51,7 @@ export default function LoginPage() {
 
     const script = document.createElement('script');
     script.src = 'https://telegram.org/js/telegram-widget.js?22';
-    script.setAttribute('data-telegram-login', 'OsonPravaBot');
+    script.setAttribute('data-telegram-login', 'EasyPrava_bot');
     script.setAttribute('data-size', 'large');
     script.setAttribute('data-radius', '12');
     script.setAttribute('data-request-access', 'write');
