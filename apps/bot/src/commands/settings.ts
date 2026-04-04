@@ -1,4 +1,5 @@
 import { Bot } from 'grammy';
+import { MyContext } from '../types';
 import { getLanguageKeyboard } from '../keyboards/inlineKeyboard';
 
 export async function showSettings(ctx: any) {
@@ -16,7 +17,7 @@ export async function showSettings(ctx: any) {
   });
 }
 
-export function setupSettingsCommand(bot: Bot) {
+export function setupSettingsCommand(bot: Bot<MyContext>) {
   bot.command('settings', async (ctx) => {
     await showSettings(ctx);
   });

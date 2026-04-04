@@ -1,4 +1,5 @@
 import { Bot } from 'grammy';
+import { MyContext } from '../types';
 import { getPremiumKeyboard } from '../keyboards/inlineKeyboard';
 
 const premiumMessages: Record<string, string> = {
@@ -36,7 +37,7 @@ Tarifni tanlang:`,
 Тарифни танланг:`,
 };
 
-export function setupPremiumCommand(bot: Bot) {
+export function setupPremiumCommand(bot: Bot<MyContext>) {
   bot.command('premium', async (ctx) => {
     const lang = ctx.session.language || 'uz';
     await ctx.reply(premiumMessages[lang] || premiumMessages.uz, {

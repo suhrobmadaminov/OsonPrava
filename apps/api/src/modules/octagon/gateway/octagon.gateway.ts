@@ -52,7 +52,7 @@ export class OctagonGateway implements OnGatewayConnection, OnGatewayDisconnect 
       for (const player of match.players) {
         const socketId = this.userSockets.get(player.userId);
         if (socketId) {
-          const playerSocket = this.server.sockets.get(socketId);
+          const playerSocket = this.server.sockets.sockets.get(socketId);
           if (playerSocket) {
             playerSocket.join(matchRoom);
           }

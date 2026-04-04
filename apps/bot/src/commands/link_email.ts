@@ -1,7 +1,8 @@
 import { Bot } from 'grammy';
+import { MyContext } from '../types';
 import { apiService } from '../services/apiService';
 
-export function setupLinkEmailCommand(bot: Bot) {
+export function setupLinkEmailCommand(bot: Bot<MyContext>) {
   bot.command('link_email', async (ctx) => {
     const lang = ctx.session.language || 'uz';
 

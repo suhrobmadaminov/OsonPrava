@@ -2,6 +2,7 @@ import express from 'express';
 import { webhookCallback } from 'grammy';
 import { bot } from './bot';
 import { config } from './config';
+import { MyContext } from './types';
 import { handleCallback } from './callbacks/handler';
 
 process.on('uncaughtException', (err) => {

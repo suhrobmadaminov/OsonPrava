@@ -1,4 +1,5 @@
 import { Bot } from 'grammy';
+import { MyContext } from '../types';
 
 const helpMessages: Record<string, string> = {
   uz: `❓ <b>Yordam</b>
@@ -50,7 +51,7 @@ Savollar uchun: @EasyPrava_bot`,
 Саволлар учун: @EasyPrava_bot`,
 };
 
-export function setupHelpCommand(bot: Bot) {
+export function setupHelpCommand(bot: Bot<MyContext>) {
   bot.command('help', async (ctx) => {
     const lang = ctx.session.language || 'uz';
     await ctx.reply(helpMessages[lang] || helpMessages.uz, { parse_mode: 'HTML' });

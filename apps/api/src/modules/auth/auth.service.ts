@@ -154,6 +154,9 @@ export class AuthService {
     }
 
     // Validate password
+    if (!user.passwordHash) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
     const isPasswordValid = await bcrypt.compare(dto.password, user.passwordHash);
     if (!isPasswordValid) {
       // Increment login attempts

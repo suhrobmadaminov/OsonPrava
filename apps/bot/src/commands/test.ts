@@ -1,4 +1,5 @@
 import { Bot } from 'grammy';
+import { MyContext } from '../types';
 import { apiService } from '../services/apiService';
 import { getAnswerKeyboard } from '../keyboards/testKeyboard';
 import { formatQuestion } from '../utils/formatting';
@@ -81,7 +82,7 @@ export async function sendQuestion(ctx: any, index: number) {
   }
 }
 
-export function setupTestCommand(bot: Bot) {
+export function setupTestCommand(bot: Bot<MyContext>) {
   bot.command('test', async (ctx) => {
     ctx.session.currentQuestionIndex = 0;
     ctx.session.correctCount = 0;

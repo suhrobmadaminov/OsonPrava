@@ -2,13 +2,7 @@ import { Bot, session, GrammyError, HttpError } from 'grammy';
 import { config } from './config';
 import { logger } from './middlewares/logger';
 import { authMiddleware } from './middlewares/auth';
-
-export interface SessionData {
-  language: string;
-  token: string | null;
-  linkEmailMode: boolean;
-  userId: string | null;
-}
+import { SessionData, MyContext } from './types';
 
 function initialSession(): SessionData {
   return {
@@ -16,10 +10,13 @@ function initialSession(): SessionData {
     token: null,
     linkEmailMode: false,
     userId: null,
+    currentQuestionIndex: 0,
+    correctCount: 0,
+    questions: [],
   };
 }
 
-const bot = new Bot(config.botToken);
+const bot = new Bot<MyContext>(config.botToken);
 
 // Session middleware
 bot.use(session({

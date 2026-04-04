@@ -1,4 +1,5 @@
 import { Bot } from 'grammy';
+import { MyContext } from '../types';
 import { getMainKeyboard } from '../keyboards/mainKeyboard';
 import { getLanguageKeyboard } from '../keyboards/inlineKeyboard';
 
@@ -40,7 +41,7 @@ Boshlash uchun pastdagi tugmalardan foydalaning! 👇`,
 Бошлаш учун пастдаги тугмалардан фойдаланинг! 👇`,
 };
 
-export function setupCommands(bot: Bot) {
+export function setupCommands(bot: Bot<MyContext>) {
   bot.command('start', async (ctx) => {
     const lang = ctx.session.language || 'uz';
 

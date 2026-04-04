@@ -1,4 +1,5 @@
 import { Bot } from 'grammy';
+import { MyContext } from '../types';
 import { getTicketPageKeyboard } from '../keyboards/inlineKeyboard';
 
 const TOTAL_TICKETS = 61;
@@ -20,7 +21,7 @@ export async function showTickets(ctx: any, page = 0) {
   });
 }
 
-export function setupTicketsCommand(bot: Bot) {
+export function setupTicketsCommand(bot: Bot<MyContext>) {
   bot.command('tickets', async (ctx) => {
     await showTickets(ctx);
   });

@@ -1,4 +1,5 @@
 import { Bot } from 'grammy';
+import { MyContext } from '../types';
 import { apiService } from '../services/apiService';
 
 export async function showStats(ctx: any) {
@@ -56,7 +57,7 @@ Davom eting! 💪`,
   }
 }
 
-export function setupStatsCommand(bot: Bot) {
+export function setupStatsCommand(bot: Bot<MyContext>) {
   bot.command('stats', async (ctx) => {
     await showStats(ctx);
   });
