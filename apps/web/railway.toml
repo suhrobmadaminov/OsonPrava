@@ -1,10 +1,10 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "npx --yes pnpm@9.0.0 --filter @osonprava/web build"
+buildCommand = "npx --yes pnpm@9.0.0 build"
 
 [deploy]
 numReplicas = 1
-startCommand = "npx --yes pnpm@9.0.0 start:web"
+startCommand = "npx --yes pnpm@9.0.0 start"
 healthcheckPath = "/"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
