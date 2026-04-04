@@ -1,13 +1,11 @@
-# nixpacks.toml - Railway build configuration for API
-
 [phases.setup]
 nixPkgs = ["nodejs_20"]
 
 [phases.install]
-cmds = ["npm install -g pnpm@9.0.0 && npx pnpm install --no-frozen-lockfile"]
+cmds = ["npx --yes pnpm@9.0.0 install --no-frozen-lockfile"]
 
 [phases.build]
-cmds = ["npx pnpm --filter @osonprava/api build", "npx pnpm --filter @osonprava/api exec prisma generate"]
+cmds = ["npx --yes pnpm@9.0.0 --filter @osonprava/api build", "npx --yes pnpm@9.0.0 --filter @osonprava/api exec prisma generate"]
 
 [start]
-cmd = "npx pnpm db:migrate:deploy && npx pnpm start:api"
+cmd = "npx --yes pnpm@9.0.0 db:migrate:deploy && npx --yes pnpm@9.0.0 start:api"
