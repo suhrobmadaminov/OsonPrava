@@ -3,7 +3,7 @@ builder = "NIXPACKS"
 
 [deploy]
 numReplicas = 1
-startCommand = "npx --yes pnpm@9.0.0 exec prisma migrate deploy && npx --yes pnpm@9.0.0 start"
+startCommand = "mkdir -p /app/prisma && npx --yes pnpm@9.0.0 exec prisma migrate deploy --schema=/app/prisma/schema.prisma && sleep 5 && npx --yes pnpm@9.0.0 start"
 healthcheckPath = "/api/v1/health"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
