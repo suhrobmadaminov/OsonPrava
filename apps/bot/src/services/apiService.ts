@@ -73,4 +73,9 @@ export const apiService = {
     }, { headers: { Authorization: `Bearer ${token}` } });
     return res.data;
   },
+
+  async linkEmail(userId: string, email: string) {
+    const res = await api.post('/auth/link-email', { userId, email });
+    return res.data;
+  },
 };

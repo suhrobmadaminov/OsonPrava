@@ -3,7 +3,9 @@ import { setAccessToken } from '@/services/api';
 
 interface User {
   id: string;
-  telegramId: string;
+  telegramId?: string;
+  email?: string;
+  emailVerified?: boolean;
   firstName: string;
   lastName: string | null;
   username: string | null;
@@ -22,6 +24,7 @@ interface AuthState {
   setLoading: (loading: boolean) => void;
   login: (user: User, accessToken: string, refreshToken: string) => void;
   logout: () => void;
+  updateEmailVerified: (verified: boolean) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -43,4 +46,9 @@ export const useAuthStore = create<AuthState>((set) => ({
     localStorage.removeItem('refreshToken');
     set({ user: null, isAuthenticated: false, isLoading: false });
   },
+
+  updateEmailVerified: (verified) =>
+    set((state) => ({
+      user: state.user ? { ...state.user, emailVerified: verified } : null,
+    })),
 }));

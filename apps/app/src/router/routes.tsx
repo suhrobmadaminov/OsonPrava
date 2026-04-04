@@ -2,6 +2,10 @@ import { lazy } from 'react';
 
 const DashboardPage = lazy(() => import('@/pages/dashboard/DashboardPage'));
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
+const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'));
+const ForgotPasswordPage = lazy(() => import('@/pages/auth/ForgotPasswordPage'));
+const ResetPasswordPage = lazy(() => import('@/pages/auth/ResetPasswordPage'));
+const VerifyEmailPage = lazy(() => import('@/pages/auth/VerifyEmailPage'));
 const TicketsPage = lazy(() => import('@/pages/tickets/TicketsPage'));
 const TicketTestPage = lazy(() => import('@/pages/tickets/TicketTestPage'));
 const TopicsPage = lazy(() => import('@/pages/topics/TopicsPage'));
@@ -22,6 +26,10 @@ const AchievementsPage = lazy(() => import('@/pages/achievements/AchievementsPag
 
 export const publicRoutes = [
   { path: '/login', element: <LoginPage /> },
+  { path: '/register', element: <RegisterPage /> },
+  { path: '/forgot-password', element: <ForgotPasswordPage /> },
+  { path: '/reset-password', element: <ResetPasswordPage /> },
+  { path: '/verify-email', element: <VerifyEmailPage /> },
 ];
 
 export const protectedRoutes = [

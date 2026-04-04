@@ -10,6 +10,7 @@ export const config = {
   apiUrl: process.env.API_URL || 'http://localhost:3001/api/v1',
   botApiKey: process.env.BOT_API_KEY || '',
   webAppUrl: process.env.WEB_APP_URL || 'https://app.osonprava.uz',
+  registrationUrl: process.env.REGISTRATION_URL || 'https://osonprava.uz/uz',
 
   redis: {
     host: process.env.REDIS_HOST || 'localhost',

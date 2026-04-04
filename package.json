@@ -16,7 +16,10 @@
     "db:migrate": "pnpm --filter @osonprava/api prisma migrate dev",
     "db:push": "pnpm --filter @osonprava/api prisma db push",
     "db:seed": "pnpm --filter @osonprava/api prisma db seed",
-    "db:studio": "pnpm --filter @osonprava/api prisma studio"
+    "db:studio": "pnpm --filter @osonprava/api prisma studio",
+    "start:api": "pnpm --filter @osonprava/api start",
+    "start:web": "pnpm --filter @osonprava/web start",
+    "start:bot": "pnpm --filter @osonprava/bot start"
   },
   "devDependencies": {
     "turbo": "^2.0.0"

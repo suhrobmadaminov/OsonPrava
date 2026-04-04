@@ -1,0 +1,13 @@
+# nixpacks.toml - Railway build configuration for API
+
+[phases.setup]
+nixPkgs = ["nodejs_20", "corepack"]
+
+[phases.install]
+cmds = ["corepack enable && pnpm install --frozen-lockfile"]
+
+[phases.build]
+cmds = ["pnpm --filter @osonprava/api build", "pnpm --filter @osonprava/api exec prisma generate"]
+
+[start]
+cmd = "npx prisma migrate deploy && pnpm --filter @osonprava/api start"

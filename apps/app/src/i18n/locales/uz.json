@@ -21,8 +21,33 @@
   },
   "auth": {
     "login": "Kirish",
+    "register": "Ro'yxatdan o'tish",
     "loginWithTelegram": "Telegram orqali kirish",
-    "logout": "Chiqish"
+    "logout": "Chiqish",
+    "email": "Email",
+    "password": "Parol",
+    "confirmPassword": "Parolni tasdiqlang",
+    "forgotPassword": "Parolni unutdingizmi?",
+    "resetPassword": "Parolni tiklash",
+    "createAccount": "Hisob yaratish",
+    "signIn": "Kirish",
+    "signingIn": "Kirilmoqda...",
+    "creatingAccount": "Hisob yaratilmoqda...",
+    "alreadyHaveAccount": "Hisobingiz bormi?",
+    "noAccount": "Hisobingiz yo'qmi?",
+    "verificationSent": "Tasdiqlash xati yuborildi",
+    "checkInbox": "Pochtangizni tekshiring",
+    "emailNotVerified": "Email tasdiqlanmagan",
+    "resendEmail": "Qayta yuborish",
+    "passwordWeak": "Zaif",
+    "passwordMedium": "O'rtacha",
+    "passwordStrong": "Kuchli",
+    "passwordMinLength": "Parol kamida 8 ta belgidan iborat bo'lishi kerak",
+    "passwordUppercase": "Kamida bitta katta harf bo'lishi kerak",
+    "passwordLowercase": "Kamida bitta kichik harf bo'lishi kerak",
+    "passwordNumber": "Kamida bitta raqam bo'lishi kerak",
+    "passwordsNotMatch": "Parollar mos kelmaydi",
+    "invalidEmail": "Noto'g'ri email manzili"
   },
   "dashboard": {
     "greeting": "Salom, {name}!",
@@ -66,12 +91,20 @@
     "subtitle": "1 ga 1 onlayn bellashuv",
     "findOpponent": "Raqib topish",
     "searching": "Raqib qidirilmoqda...",
+    "cancel": "Bekor qilish",
+    "searchingHint": "Raqib topilganda xabar beramiz",
     "vs": "VS",
     "youWon": "Siz yutdingiz!",
     "youLost": "Siz yutqazdingiz",
     "draw": "Durrang",
     "playAgain": "Yana o'ynash",
-    "score": "Hisobni"
+    "score": "Hisob",
+    "result": {
+      "win": "G'alaba!",
+      "lose": "Mag'lubiyat",
+      "draw": "Durrang"
+    },
+    "you": "Siz"
   },
   "smartTest": {
     "title": "Aqlli test",

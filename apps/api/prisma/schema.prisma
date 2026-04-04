@@ -13,6 +13,14 @@ model User {
   id               Int       @id @default(autoincrement())
   telegramId       BigInt?   @unique @map("telegram_id")
   email            String?   @unique
+  passwordHash     String?   @map("password_hash")
+  emailVerified    Boolean   @default(false) @map("email_verified")
+  emailVerificationToken  String?   @map("email_verification_token")
+  emailVerificationExpires DateTime? @map("email_verification_expires")
+  resetPasswordToken     String?   @map("reset_password_token")
+  resetPasswordExpires     DateTime? @map("reset_password_expires")
+  loginAttempts      Int       @default(0) @map("login_attempts")
+  lockedUntil        DateTime? @map("locked_until")
   username         String?   @unique
   firstName        String?   @map("first_name")
   lastName         String?   @map("last_name")

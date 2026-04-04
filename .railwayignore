@@ -1,0 +1,43 @@
+# .railwayignore - Files to exclude from Railway builds
+
+# Documentation
+README.md
+README_RAILWAY.md
+*.md
+
+# Development
+.env
+.env.*
+!.env.example
+!.env.railway.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile
+docker-compose.yml
+docker/
+
+# Testing
+test/
+tests/
+*.test.ts
+*.spec.ts
+jest.config.*
+
+# Misc
+.turbo/
+node_modules/.cache/

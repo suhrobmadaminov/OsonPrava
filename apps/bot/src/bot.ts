@@ -6,12 +6,16 @@ import { authMiddleware } from './middlewares/auth';
 export interface SessionData {
   language: string;
   token: string | null;
+  linkEmailMode: boolean;
+  userId: string | null;
 }
 
 function initialSession(): SessionData {
   return {
     language: 'uz',
     token: null,
+    linkEmailMode: false,
+    userId: null,
   };
 }
 

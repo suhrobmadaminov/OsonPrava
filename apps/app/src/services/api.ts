@@ -29,6 +29,15 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    // 403 — Email not verified or account locked
+    if (error.response?.status === 403) {
+      const message = error.response?.data?.message || '';
+      if (message.toLowerCase().includes('email not verified') || message.toLowerCase().includes('not verified')) {
+        window.location.href = '/verify-email';
+        return Promise.reject(error);
+      }
+    }
+
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 

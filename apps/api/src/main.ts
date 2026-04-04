@@ -14,9 +14,27 @@ async function bootstrap() {
   app.use(helmet());
 
   // CORS
+  const corsOrigins = process.env.CORS_ORIGINS
+    ? process.env.CORS_ORIGINS.split(',')
+    : [
+        'http://localhost:3000',
+        'http://localhost:5173',
+        'http://localhost:3001',
+      ];
+
+  // Add Railway production domains if WEB_APP_URL is set
+  if (process.env.WEB_APP_URL) {
+    corsOrigins.push(process.env.WEB_APP_URL);
+  }
+  if (process.env.FRONTEND_URL) {
+    corsOrigins.push(process.env.FRONTEND_URL);
+  }
+
   app.enableCors({
-    origin: process.env.CORS_ORIGINS?.split(',') || ['http://localhost:3000', 'http://localhost:5173'],
+    origin: corsOrigins,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Bot-Key'],
   });
 
   // Validation

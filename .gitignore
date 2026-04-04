@@ -9,3 +9,9 @@ build/
 .turbo/
 .cache/
 coverage/
+
+# Railway
+!.railwayignore
+!railway.json
+!*/railway.toml
+!*/nixpacks.toml

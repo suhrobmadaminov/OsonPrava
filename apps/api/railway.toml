@@ -1,0 +1,9 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+numReplicas = 1
+startCommand = "npx prisma migrate deploy && pnpm --filter @osonprava/api start"
+healthcheckPath = "/api/v1/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"

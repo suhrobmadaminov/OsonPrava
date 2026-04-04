@@ -143,6 +143,19 @@ export async function handleCallback(ctx: any) {
       return;
     }
 
+    // Link email callback
+    if (data === 'link_email') {
+      ctx.session.linkEmailMode = true;
+      const lang = ctx.session.language || 'uz';
+      const linkMsg: Record<string, string> = {
+        uz: '📧 Iltimos, emailingizni yuboring:',
+        ru: '📧 Пожалуйста, отправьте ваш email:',
+        kr: '📧 Илтимос, emailingизни юборинг:',
+      };
+      await ctx.reply(linkMsg[lang] || linkMsg.uz);
+      return;
+    }
+
     // Noop (page counter etc.)
     if (data === 'noop') return;
   } catch (err) {

@@ -5,7 +5,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { LocalStrategy } from './strategies/local.strategy';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { EmailModule } from '../email/email.module';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
@@ -19,11 +21,13 @@ import { APP_GUARD } from '@nestjs/core';
         signOptions: { expiresIn: config.get<string>('JWT_ACCESS_EXPIRES') || '15m' },
       }),
     }),
+    EmailModule,
   ],
   controllers: [AuthController],
   providers: [
     AuthService,
     JwtStrategy,
+    LocalStrategy,
     { provide: APP_GUARD, useClass: JwtAuthGuard },
   ],
   exports: [AuthService],

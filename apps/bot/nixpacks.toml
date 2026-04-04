@@ -1,0 +1,13 @@
+# nixpacks.toml - Railway build configuration for Bot
+
+[phases.setup]
+nixPkgs = ["nodejs_20", "corepack"]
+
+[phases.install]
+cmds = ["corepack enable && pnpm install --frozen-lockfile"]
+
+[phases.build]
+cmds = ["pnpm --filter @osonprava/bot build"]
+
+[start]
+cmd = "pnpm --filter @osonprava/bot start"
