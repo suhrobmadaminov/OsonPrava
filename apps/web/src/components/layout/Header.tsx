@@ -51,13 +51,13 @@ export function Header() {
             href={`/${locale}/auth/login`}
             className="rounded-xl border-2 border-duo-green px-5 py-2 text-sm font-bold text-duo-green transition-all hover:bg-duo-green/10"
           >
-            Kirish
+            {t('login')}
           </Link>
           <Link
             href={`/${locale}/auth/register`}
             className="rounded-2xl bg-duo-green px-5 py-2 text-sm font-bold text-white shadow-[0_3px_0_0_#4CAD01] transition-all hover:brightness-110 active:translate-y-0.5 active:shadow-none"
           >
-            {t('login')}
+            {t('register')}
           </Link>
         </div>
 
@@ -91,14 +91,14 @@ export function Header() {
                 onClick={() => setMobileOpen(false)}
                 className="rounded-xl border-2 border-duo-green px-4 py-3 text-center text-sm font-bold text-duo-green transition-all hover:bg-duo-green/10"
               >
-                Kirish
+                {t('login')}
               </Link>
               <Link
                 href={`/${locale}/auth/register`}
                 onClick={() => setMobileOpen(false)}
                 className="rounded-2xl bg-duo-green px-4 py-3 text-center text-sm font-bold text-white shadow-[0_3px_0_0_#4CAD01] transition-all hover:brightness-110"
               >
-                {t('login')}
+                {t('register')}
               </Link>
             </div>
           </nav>
