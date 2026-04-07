@@ -4,7 +4,7 @@ djangorestframework==3.15.1
 djangorestframework-simplejwt==5.3.1
 django-cors-headers==4.3.1
 django-filter==24.1
-drf-yasg==1.21.7
+drf-yasg==1.21.10
 django-jazzmin==3.0.0
 
 # Database
