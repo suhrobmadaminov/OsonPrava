@@ -1,21 +1,38 @@
-node_modules/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
 dist/
-build/
-.next/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
 .env
 .env.local
-.env.*.local
+
+# Static & Media
+staticfiles/
+media/
+
+# Database
+db.sqlite3
+
+# Logs
+logs/
 *.log
-.turbo/
-.cache/
-coverage/
 
-# Railway
-!.railwayignore
-!railway.json
-!*/railway.toml
-!*/nixpacks.toml
-
-# Docker (not used in Railway)
-Dockerfile
-Dockerfile.*
+# OS
+.DS_Store
+Thumbs.db

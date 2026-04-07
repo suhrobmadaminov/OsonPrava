@@ -1,116 +1,58 @@
 version: '3.8'
 
 services:
-  # ============ DATABASES ============
-  postgres:
-    image: postgres:16-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB: ${POSTGRES_DB:-osonprava}
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/osonprava
+      - REDIS_URL=redis://redis:6379/0
+
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=osonprava
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   redis:
     image: redis:7-alpine
-    restart: unless-stopped
-    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
-    volumes:
-      - redis-data:/data
     ports:
       - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # ============ BACKEND API ============
-  api:
-    build:
-      context: .
-      dockerfile: apps/api/Dockerfile
-    restart: unless-stopped
-    env_file: .env
-    environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-osonprava}
-      REDIS_URL: redis://redis:6379
-      PORT: 3001
-    ports:
-      - "3001:3001"
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-
-  # ============ TELEGRAM BOT ============
-  bot:
-    build:
-      context: .
-      dockerfile: apps/bot/Dockerfile
-    restart: unless-stopped
-    env_file: .env
-    environment:
-      API_URL: http://api:3001/api/v1
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-    depends_on:
-      api:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-
-  # ============ MARKETING SITE ============
-  web:
-    build:
-      context: .
-      dockerfile: apps/web/Dockerfile
-    restart: unless-stopped
-    env_file: .env
-    environment:
-      API_URL: http://api:3001/api/v1
-    ports:
-      - "3000:3000"
-    depends_on:
-      api:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-
-  # ============ NGINX ============
-  nginx:
-    image: nginx:alpine
-    restart: unless-stopped
-    ports:
-      - "80:80"
     volumes:
-      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./apps/app/dist:/var/www/app:ro
+      - redis_data:/data
+
+  celery:
+    build: .
+    command: celery -A config worker -l info
     depends_on:
-      api:
-        condition: service_healthy
-      web:
-        condition: service_healthy
+      - redis
+      - db
+    env_file:
+      - .env
+
+  celery-beat:
+    build: .
+    command: celery -A config beat -l info
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - .env
 
 volumes:
-  postgres-data:
-  redis-data:
+  postgres_data:
+  redis_data:
