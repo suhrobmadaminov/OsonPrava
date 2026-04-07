@@ -36,6 +36,7 @@ django-anymail==10.3
 # Utils
 python-decouple==3.8
 python-slugify==8.0.4
+setuptools>=69.0.0
 
 # Production
 gunicorn==21.2.0

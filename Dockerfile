@@ -23,9 +23,6 @@ COPY . .
 # Create necessary directories
 RUN mkdir -p staticfiles media logs
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
-
 # Expose port
 EXPOSE 8000
 
