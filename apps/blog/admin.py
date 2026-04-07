@@ -7,7 +7,7 @@ from .models import BlogPost
 class BlogPostAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'title_short', 'category_badge', 'is_published_badge',
-        'published_at', 'view_count_display', 'created_at', 'updated_at'
+        'is_published', 'published_at', 'view_count_display', 'created_at', 'updated_at'
     )
     list_filter = ('is_published', 'category', 'created_at')
     search_fields = ('title_uz', 'title_uz_cyr', 'title_ru', 'content_uz', 'content_uz_cyr', 'content_ru')

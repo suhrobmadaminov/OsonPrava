@@ -33,7 +33,10 @@ INSTALLED_APPS = [
     'drf_yasg',
     'storages',
     'django_celery_beat',
-    
+
+    # Core utilities
+    'core',
+
     # Local apps
     'apps.users',
     'apps.questions',
@@ -50,6 +53,8 @@ INSTALLED_APPS = [
     'apps.notifications',
     'apps.admin_panel',
     'apps.accounts',
+    'apps.health',
+    'apps.files_app',
 ]
 
 MIDDLEWARE = [
@@ -97,9 +102,12 @@ DATABASES = {
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': config('CACHES_DEFAULT_LOCATION', default='redis://127.0.0.1:6379/1'),
+        'LOCATION': config('REDIS_URL', default='redis://127.0.0.1:6379/0'),
     }
 }
+
+# Redis URL for direct access
+REDIS_URL = config('REDIS_URL', default='redis://127.0.0.1:6379/0')
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -107,6 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {'NAME': 'core.validators.PasswordStrengthValidator'},
 ]
 
 # Internationalization
@@ -247,43 +256,54 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'core.pagination.StandardPagination',
     'PAGE_SIZE': 20,
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ),
+    'EXCEPTION_HANDLER': 'core.exceptions.custom_exception_handler',
 }
 
 # JWT Settings
 from datetime import timedelta
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
+    'BLACKLIST_AFTER_ROTATION': False,  # We handle this manually
     'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'sub',
 }
+
+# Telegram
+TELEGRAM_BOT_TOKEN = config('TELEGRAM_BOT_TOKEN', default='')
+TELEGRAM_BOT_USERNAME = config('TELEGRAM_BOT_USERNAME', default='')
+
+# Frontend
+FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:5173')
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='http://localhost:3000,http://localhost:5173').split(',')
 
 # Celery
-CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='redis://127.0.0.1:6379/0')
-CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='redis://127.0.0.1:6379/0')
+CELERY_BROKER_URL = config('CELERY_BROKER_URL', default=config('REDIS_URL', default='redis://127.0.0.1:6379/0'))
+CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default=config('REDIS_URL', default='redis://127.0.0.1:6379/0'))
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
 
 # Channels - WebSocket
+CHANNELS_REDIS_URL = config('CHANNELS_REDIS_URL', default=config('REDIS_URL', default='redis://127.0.0.1:6379/0'))
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [config('CHANNELS_REDIS_URL', default='redis://127.0.0.1:6379/0')],
+            'hosts': [CHANNELS_REDIS_URL],
         },
     },
 }

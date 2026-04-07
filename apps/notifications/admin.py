@@ -7,7 +7,7 @@ from .models import Notification
 class NotificationAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'user_display', 'type_display', 'title_short',
-        'is_read_badge', 'created_at', 'time_ago'
+        'is_read_badge', 'is_read', 'created_at', 'time_ago'
     )
     list_filter = ('is_read', 'type', 'created_at')
     search_fields = ('user__username', 'user__email', 'title_uz', 'title_ru', 'body_uz')

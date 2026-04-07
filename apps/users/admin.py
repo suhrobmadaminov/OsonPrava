@@ -4,19 +4,19 @@ Custom admin for User model with enhanced features.
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
-from .models import User, RefreshToken
+from .models import User
 
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     """Enhanced User admin with custom fields and actions."""
-    
+
     list_display = (
-        'id', 'username', 'email', 'telegram_id', 'role', 'language', 
+        'id', 'username', 'email', 'telegram_id', 'role', 'language',
         'is_premium', 'streak', 'last_active_at', 'created_at', 'is_active'
     )
     list_filter = (
-        'role', 'language', 'is_premium', 'is_staff', 'is_active', 
+        'role', 'language', 'is_premium', 'is_staff', 'is_active',
         'email_verified', 'created_at', 'last_active_at'
     )
     search_fields = (
@@ -29,7 +29,7 @@ class UserAdmin(BaseUserAdmin):
     list_per_page = 50
     date_hierarchy = 'created_at'
     ordering = ('-created_at',)
-    
+
     fieldsets = (
         (_('Asosiy ma\'lumotlar'), {
             'fields': ('username', 'email', 'password', 'telegram_id')
@@ -64,7 +64,7 @@ class UserAdmin(BaseUserAdmin):
             'classes': ('collapse',)
         }),
     )
-    
+
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -74,54 +74,25 @@ class UserAdmin(BaseUserAdmin):
             ),
         }),
     )
-    
+
     actions = ['make_premium', 'remove_premium', 'ban_users', 'activate_users']
-    
+
     @admin.action(description='Tanlangan foydalanuvchilarni Premium qilish')
     def make_premium(self, request, queryset):
         updated = queryset.update(is_premium=True)
         self.message_user(request, f'{updated} foydalanuvchi Premium qilindi.')
-    
+
     @admin.action(description='Tanlangan foydalanuvchilarning Premium olib tashlash')
     def remove_premium(self, request, queryset):
         updated = queryset.update(is_premium=False, premium_expires_at=None)
         self.message_user(request, f'{updated} foydalanuvchining Premium olib tashlandi.')
-    
+
     @admin.action(description='Tanlangan foydalanuvchilarni bloklash')
     def ban_users(self, request, queryset):
         updated = queryset.update(role='BANNED', is_active=False)
         self.message_user(request, f'{updated} foydalanuvchi bloklandi.')
-    
+
     @admin.action(description='Tanlangan foydalanuvchilarni faollashtirish')
     def activate_users(self, request, queryset):
         updated = queryset.update(is_active=True)
         self.message_user(request, f'{updated} foydalanuvchi faollashtirildi.')
-
-
-@admin.register(RefreshToken)
-class RefreshTokenAdmin(admin.ModelAdmin):
-    """Refresh Token admin with quick actions."""
-    
-    list_display = (
-        'id', 'user', 'token_short', 'expires_at', 'created_at', 'is_expired'
-    )
-    list_filter = ('expires_at', 'created_at')
-    search_fields = ('user__username', 'user__email', 'token')
-    readonly_fields = ('created_at',)
-    raw_id_fields = ('user',)
-    list_per_page = 100
-    date_hierarchy = 'created_at'
-    
-    def token_short(self, obj):
-        return f"{obj.token[:20]}..."
-    token_short.short_description = 'Token'
-    
-    @admin.action(description='Tanlangan tokenlarni o\'chirish')
-    def delete_expired(self, request, queryset):
-        deleted, _ = queryset.filter(expires_at__lt=timezone.now()).delete()
-        self.message_user(request, f'{deleted} muddati tugagan token o\'chirildi.')
-    
-    actions = ['delete_expired']
-
-
-from django.utils import timezone

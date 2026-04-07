@@ -25,7 +25,7 @@ class OctagonPlayerInline(admin.TabularInline):
 @admin.register(OctagonMatch)
 class OctagonMatchAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'status_badge', 'questions_count', 'players_count',
+        'id', 'status_badge', 'status', 'questions_count', 'players_count',
         'winner_display', 'started_at', 'completed_at', 'duration_display', 'created_at'
     )
     list_filter = ('status', 'created_at')
