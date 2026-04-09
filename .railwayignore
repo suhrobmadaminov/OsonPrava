@@ -26,8 +26,7 @@ Thumbs.db
 .gitignore
 .gitattributes
 
-# Docker
-Dockerfile
+# Docker (keep Dockerfile for Railway build)
 docker-compose.yml
 docker/
 
