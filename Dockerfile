@@ -53,5 +53,5 @@ EXPOSE ${PORT:-8000}
 
 # Start command - Railway provides PORT env variable
 CMD python manage.py migrate --noinput && \
-    python scripts/ensure_superuser.py && \
+    (python scripts/ensure_superuser.py || true) && \
     gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 4 --threads 2 --log-level info
