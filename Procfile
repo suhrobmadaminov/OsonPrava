@@ -1,5 +1,3 @@
-# Procfile for Railway deployment
+# Procfile for Railway deployment (Django)
 
-osonprava-api: pnpm db:migrate:deploy && pnpm start:api
-osonprava-bot: pnpm start:bot
-osonprava-web: pnpm start:web
+web: python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 4 --log-level info

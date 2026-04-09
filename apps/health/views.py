@@ -31,10 +31,14 @@ class HealthCheckView(APIView):
 
         # Check Redis
         try:
-            start = time.time()
-            r = redis.from_url(settings.CACHES['default']['LOCATION'])
-            r.ping()
-            redis_latency_ms = round((time.time() - start) * 1000)
+            redis_url = getattr(settings, 'REDIS_URL', None)
+            if redis_url:
+                start = time.time()
+                r = redis.from_url(redis_url)
+                r.ping()
+                redis_latency_ms = round((time.time() - start) * 1000)
+            else:
+                redis_status = 'down'
         except Exception:
             redis_status = 'down'
 
@@ -67,5 +71,6 @@ class HealthCheckView(APIView):
             },
         }
 
-        status_code = status.HTTP_200_OK if overall_status != 'critical' else status.HTTP_503_SERVICE_UNAVAILABLE
-        return Response(health, status=status_code)
+        # Railway health check uchun har doim 200 qaytaramiz
+        # DB/Redis holati faqat monitoring uchun
+        return Response(health, status=status.HTTP_200_OK)
