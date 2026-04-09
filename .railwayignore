@@ -41,3 +41,17 @@ jest.config.*
 # Misc
 .turbo/
 node_modules/.cache/
+
+# Node.js files (Railway should only see Python)
+server.js
+bot.js
+package.json
+package-lock.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+turbo.json
+node_modules/
+apps/api/
+apps/bot/
+apps/app/
+apps/web/
