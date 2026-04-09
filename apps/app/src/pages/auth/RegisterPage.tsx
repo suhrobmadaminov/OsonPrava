@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { useAuthStore } from '@/stores/authStore';
 import { authService } from '@/services/authService';
 import PasswordStrengthIndicator from '@/components/auth/PasswordStrengthIndicator';
+import { TELEGRAM_BOT } from '@/lib/constants';
 
 const registerSchema = z
   .object({
@@ -76,14 +77,40 @@ export default function RegisterPage() {
         </div>
 
         {/* Logo */}
-        <div className="space-y-2">
-          <div className="w-16 h-16 bg-duo-green rounded-2xl flex items-center justify-center mx-auto shadow-lg">
-            <UserPlus size={28} className="text-white" />
+        <div className="space-y-4">
+          <div className="w-20 h-20 bg-[#2AABEE] rounded-[2.5rem] flex items-center justify-center mx-auto shadow-xl shadow-blue-500/20">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10 text-white translate-x-[-2px] translate-y-[2px]">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.74 3.98-1.73 6.64-2.88 7.97-3.44 3.8-1.6 4.59-1.87 5.1-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.01.06.01.24 0 .38z" />
+            </svg>
           </div>
-          <h1 className="text-2xl font-extrabold">Create Account</h1>
+          <h1 className="text-2xl font-black text-gray-900 dark:text-white">Keling, ro'yxatdan o'tamiz!</h1>
           <p className="text-gray-500 dark:text-dark-muted text-sm">
-            Join OsonPrava and start learning
+            Telegram orqali ro'yxatdan o'tish uchun quyidagi tugmani bosing.
           </p>
+        </div>
+
+        {/* Telegram Login */}
+        <div className="space-y-3">
+          <a
+            href={TELEGRAM_BOT}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center justify-center gap-3 bg-[#2AABEE] hover:bg-[#229ED9] text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98]"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.74 3.98-1.73 6.64-2.88 7.97-3.44 3.8-1.6 4.59-1.87 5.1-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.01.06.01.24 0 .38z" />
+            </svg>
+            Telegramda tasdiqlash
+          </a>
+          <p className="text-center text-[10px] text-gray-400 italic px-4">
+            Meni bossangiz sizni Telegram botimizga yuboradi. Botimiz sizni tasdiqlagandan so'ng bu yerga qaytib keling.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-4 py-2">
+          <div className="flex-1 h-px bg-gray-100 dark:bg-dark-border" />
+          <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">yoki email orqali</span>
+          <div className="flex-1 h-px bg-gray-100 dark:bg-dark-border" />
         </div>
 
         {/* Form */}
