@@ -8,9 +8,9 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        postgresql-client \
-        libpq-dev \
-        gcc \
+    postgresql-client \
+    libpq-dev \
+    gcc \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
@@ -51,4 +51,6 @@ RUN SECRET_KEY=build-placeholder python manage.py collectstatic --noinput 2>/dev
 EXPOSE ${PORT:-8000}
 
 # Start command - Railway provides PORT env variable
-CMD python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 4 --threads 2 --log-level info
+CMD python manage.py migrate --noinput && \
+    python manage.py createsuperuser --noinput --email=${DJANGO_SUPERUSER_EMAIL:-admin@osonprava.uz} 2>/dev/null || true && \
+    gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 4 --threads 2 --log-level info
