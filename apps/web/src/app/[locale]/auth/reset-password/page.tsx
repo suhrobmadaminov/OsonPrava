@@ -60,10 +60,14 @@ function ResetPasswordContent() {
     setError('');
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://api.osonprava.uz/api/v1'}/auth/reset-password`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://api.osonprava.uz/api/v1'}/auth/reset-password/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, newPassword: password, confirmNewPassword: confirmPassword }),
+        body: JSON.stringify({
+          token,
+          new_password: password,
+          confirm_new_password: confirmPassword
+        }),
       });
 
       if (!res.ok) {

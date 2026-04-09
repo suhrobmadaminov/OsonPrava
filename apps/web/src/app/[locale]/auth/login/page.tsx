@@ -22,7 +22,7 @@ export default function LoginPage() {
     setError('');
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://api.osonprava.uz/api/v1'}/auth/login`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://api.osonprava.uz/api/v1'}/auth/login/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -94,21 +94,19 @@ export default function LoginPage() {
           <div className="flex rounded-xl bg-gray-100 p-1 mb-6">
             <button
               onClick={() => setActiveTab('email')}
-              className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${
-                activeTab === 'email'
+              className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${activeTab === 'email'
                   ? 'bg-white text-duo-green shadow-sm'
                   : 'text-gray-500 hover:text-gray-700'
-              }`}
+                }`}
             >
               Email
             </button>
             <button
               onClick={() => setActiveTab('telegram')}
-              className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${
-                activeTab === 'telegram'
+              className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${activeTab === 'telegram'
                   ? 'bg-white text-duo-green shadow-sm'
                   : 'text-gray-500 hover:text-gray-700'
-              }`}
+                }`}
             >
               Telegram
             </button>
