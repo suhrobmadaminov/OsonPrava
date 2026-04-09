@@ -1,4 +1,6 @@
+import os
 import sys
+import django
 from pathlib import Path
 
 # Add the project root to the Python path
