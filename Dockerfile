@@ -52,5 +52,5 @@ EXPOSE ${PORT:-8000}
 
 # Start command - Railway provides PORT env variable
 CMD python manage.py migrate --noinput && \
-    python manage.py createsuperuser --noinput --email=${DJANGO_SUPERUSER_EMAIL:-admin@osonprava.uz} 2>/dev/null || true && \
+    python scripts/ensure_superuser.py && \
     gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 4 --threads 2 --log-level info
