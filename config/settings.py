@@ -297,6 +297,12 @@ FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:5173')
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='http://localhost:3000,http://localhost:5173').split(',')
 
+# CSRF Trusted Origins (Django 4.0+ requires full URL with scheme)
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS',
+    default='https://osonpravabackend-production.up.railway.app,https://*.railway.app,http://localhost:3000,http://localhost:5173'
+).split(',')
+
 # Celery
 CELERY_BROKER_URL = config('CELERY_BROKER_URL', default=config('REDIS_URL', default='redis://127.0.0.1:6379/0'))
 CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default=config('REDIS_URL', default='redis://127.0.0.1:6379/0'))
