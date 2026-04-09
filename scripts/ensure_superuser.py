@@ -1,6 +1,9 @@
-import os
-import django
-from django.conf import settings
+import sys
+from pathlib import Path
+
+# Add the project root to the Python path
+ROOT_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(ROOT_DIR))
 
 # Setup Django atmosphere
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
