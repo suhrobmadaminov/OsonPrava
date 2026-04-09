@@ -40,6 +40,7 @@ COPY apps/tests/ apps/tests/
 COPY apps/tickets/ apps/tickets/
 COPY apps/users/ apps/users/
 COPY manage.py .
+COPY scripts/ scripts/
 
 # Create necessary directories
 RUN mkdir -p staticfiles media logs static templates
