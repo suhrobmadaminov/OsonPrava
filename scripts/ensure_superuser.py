@@ -20,6 +20,8 @@ def ensure_superuser():
         print("DJANGO_SUPERUSER_PASSWORD not set. Skipping superuser check.")
         return
 
+    print(f"Ensuring superuser via script. Target email: {email}")
+
     try:
         user = User.objects.filter(email=email).first()
         if user:
