@@ -62,17 +62,21 @@ export default function RegisterPage() {
         body: JSON.stringify({ email, password, confirm_password: confirmPassword }),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || 'Ro\'yxatdan o\'tishda xatolik');
+        // Handle validation errors from Django backend
+        const errorMessage = typeof data === 'object' 
+          ? (data.message || data.detail || data.email?.[0] || data.password?.[0] || data.non_field_errors?.[0] || 'Ro\'yxatdan o\'tishda xatolik')
+          : String(data || 'Ro\'yxatdan o\'tishda xatolik');
+        throw new Error(errorMessage);
       }
 
-      const data = await res.json();
       setSuccess(true);
 
       // Store tokens
-      localStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
+      if (data.accessToken) localStorage.setItem('accessToken', data.accessToken);
+      if (data.refreshToken) localStorage.setItem('refreshToken', data.refreshToken);
 
       // Redirect after short delay
       setTimeout(() => {
