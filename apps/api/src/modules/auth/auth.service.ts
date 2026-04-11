@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { createHmac, randomBytes } from 'crypto';
+import { createHmac, createHash, randomBytes } from 'crypto';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from '../../prisma/prisma.service';
 import { EmailService } from '../email/email.service';
@@ -25,7 +25,7 @@ export class AuthService {
     private jwtService: JwtService,
     private configService: ConfigService,
     private emailService: EmailService,
-  ) {}
+  ) { }
 
   // ==================== TELEGRAM AUTH ====================
 
@@ -60,27 +60,50 @@ export class AuthService {
       });
     }
 
-    return this.generateTokens(user.id);
+    const tokens = await this.generateTokens(user.id);
+    return {
+      ...tokens,
+      user: this.formatUser(user),
+    };
   }
 
-  async loginViaTelegramBot(telegramId: number, firstName?: string, lastName?: string, username?: string) {
+  async loginViaTelegramBot(initData: string) {
+    const data = this.verifyTelegramWebAppInitData(initData);
+    const tgUser = JSON.parse(data.user);
+
     let user = await this.prisma.user.findUnique({
-      where: { telegramId: BigInt(telegramId) },
+      where: { telegramId: BigInt(tgUser.id) },
     });
 
     if (!user) {
       user = await this.prisma.user.create({
         data: {
-          telegramId: BigInt(telegramId),
-          firstName,
-          lastName,
-          username,
+          telegramId: BigInt(tgUser.id),
+          firstName: tgUser.first_name,
+          lastName: tgUser.last_name,
+          username: tgUser.username,
+          avatarUrl: tgUser.photo_url,
           emailVerified: true,
+        },
+      });
+    } else {
+      user = await this.prisma.user.update({
+        where: { id: user.id },
+        data: {
+          firstName: tgUser.first_name,
+          lastName: tgUser.last_name,
+          username: tgUser.username,
+          avatarUrl: tgUser.photo_url,
+          lastActiveAt: new Date(),
         },
       });
     }
 
-    return this.generateTokens(user.id);
+    const tokens = await this.generateTokens(user.id);
+    return {
+      ...tokens,
+      user: this.formatUser(user),
+    };
   }
 
   // ==================== EMAIL AUTH ====================
@@ -200,7 +223,11 @@ export class AuthService {
       data: { lastActiveAt: new Date() },
     });
 
-    return this.generateTokens(user.id);
+    const tokens = await this.generateTokens(user.id);
+    return {
+      ...tokens,
+      user: this.formatUser(user),
+    };
   }
 
   async validateEmailPassword(email: string, password: string) {
@@ -250,7 +277,7 @@ export class AuthService {
     });
 
     // Send welcome email
-    await this.emailService.sendWelcomeEmail(user.email!, user.firstName, user.language || 'uz').catch(() => {});
+    await this.emailService.sendWelcomeEmail(user.email!, user.firstName, user.language || 'uz').catch(() => { });
 
     return {
       verified: true,
@@ -287,7 +314,7 @@ export class AuthService {
     });
 
     // Send reset email
-    await this.emailService.sendPasswordResetEmail(user.email!, resetToken, lang || 'uz').catch(() => {});
+    await this.emailService.sendPasswordResetEmail(user.email!, resetToken, lang || 'uz').catch(() => { });
 
     return { success: true, message: 'If the email exists, a reset link has been sent' };
   }
@@ -368,7 +395,7 @@ export class AuthService {
     });
 
     // Send verification email
-    await this.emailService.sendVerificationEmail(user.email!, verificationToken, lang || 'uz').catch(() => {});
+    await this.emailService.sendVerificationEmail(user.email!, verificationToken, lang || 'uz').catch(() => { });
 
     return { success: true, message: 'Verification email sent', verificationToken };
   }
@@ -494,11 +521,39 @@ export class AuthService {
     return randomBytes(64).toString('hex');
   }
 
+  private verifyTelegramWebAppInitData(initData: string) {
+    const botToken = this.configService.get<string>('TELEGRAM_BOT_TOKEN');
+    if (!botToken) throw new UnauthorizedException('Bot token not configured');
+
+    const params = new URLSearchParams(initData);
+    const hash = params.get('hash');
+    params.delete('hash');
+
+    const checkString = Array.from(params.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, value]) => `${key}=${value}`)
+      .join('\n');
+
+    const secretKey = createHmac('sha256', 'WebAppData')
+      .update(botToken)
+      .digest();
+
+    const hmac = createHmac('sha256', secretKey)
+      .update(checkString)
+      .digest('hex');
+
+    if (hmac !== hash) {
+      throw new UnauthorizedException('Invalid Telegram WebApp data');
+    }
+
+    return Object.fromEntries(params.entries());
+  }
+
   private verifyTelegramData(dto: TelegramAuthDto) {
     const botToken = this.configService.get<string>('TELEGRAM_BOT_TOKEN');
     if (!botToken) throw new UnauthorizedException('Bot token not configured');
 
-    const secret = createHmac('sha256', 'WebAppData').update(botToken).digest();
+    const secret = createHash('sha256').update(botToken).digest();
     const checkString = Object.keys(dto)
       .filter((key) => key !== 'hash')
       .sort()
@@ -516,5 +571,22 @@ export class AuthService {
     if (Date.now() / 1000 - authDate > 86400) {
       throw new UnauthorizedException('Telegram auth data expired');
     }
+  }
+
+  private formatUser(user: any) {
+    return {
+      id: user.id.toString(),
+      telegramId: user.telegramId?.toString(),
+      email: user.email,
+      emailVerified: user.emailVerified,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      username: user.username,
+      photoUrl: user.avatarUrl,
+      role: user.role,
+      language: user.language,
+      isPremium: user.isPremium,
+      streak: user.streak,
+    };
   }
 }

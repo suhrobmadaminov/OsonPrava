@@ -146,7 +146,10 @@ class AuthService:
         tokens = cls.get_refresh_tokens(user)
         user.update_last_active()
         
-        return tokens
+        return {
+            **tokens,
+            'user': cls._format_user_response(user)
+        }
     
     @classmethod
     def telegram_bot_auth(cls, telegram_id: int, **kwargs) -> Dict[str, Any]:
@@ -172,7 +175,10 @@ class AuthService:
         tokens = cls.get_refresh_tokens(user)
         user.update_last_active()
         
-        return tokens
+        return {
+            **tokens,
+            'user': cls._format_user_response(user)
+        }
     
     @classmethod
     def register(cls, email: str, password: str) -> Dict[str, Any]:
@@ -253,7 +259,11 @@ class AuthService:
         user.update_last_active()
         
         # Generate tokens
-        return cls.get_refresh_tokens(user)
+        tokens = cls.get_refresh_tokens(user)
+        return {
+            **tokens,
+            'user': cls._format_user_response(user)
+        }
     
     @classmethod
     def verify_email(cls, token: str) -> Dict[str, Any]:
@@ -516,6 +526,27 @@ class AuthService:
             )
         except Exception:
             pass
+
+
+    @classmethod
+    def _format_user_response(cls, user) -> Dict[str, Any]:
+        """
+        Format user data for API response
+        """
+        return {
+            'id': str(user.id),
+            'telegramId': str(user.telegram_id) if user.telegram_id else None,
+            'email': user.email,
+            'emailVerified': user.email_verified,
+            'firstName': user.first_name,
+            'lastName': user.last_name,
+            'username': user.username,
+            'photoUrl': user.avatar_url,
+            'role': user.role,
+            'language': user.language,
+            'isPremium': user.is_premium,
+            'streak': user.streak,
+        }
 
 
 # Import validators
