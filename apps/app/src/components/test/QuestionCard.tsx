@@ -39,17 +39,19 @@ export default function QuestionCard({
       : question.explanationUz;
 
   return (
-    <div className="space-y-4">
-      {/* Question counter */}
-      <div className="text-sm font-semibold text-gray-500 dark:text-dark-muted">
-        {t('test.question')} {questionIndex + 1}{t('test.of')}{totalQuestions}
+    <div className="space-y-5">
+      {/* Question counter - Expressive */}
+      <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-primary/10 dark:bg-gradient-primary/20 backdrop-blur-sm">
+        <span className="text-sm font-bold bg-gradient-primary bg-clip-text text-transparent">
+          {t('test.question')} {questionIndex + 1}{t('test.of')}{totalQuestions}
+        </span>
       </div>
 
       {/* Question image */}
       {question.imageUrl && <QuestionImage src={question.imageUrl} />}
 
-      {/* Question text */}
-      <h2 className="text-lg font-bold leading-snug">
+      {/* Question text - Expressive */}
+      <h2 className="text-xl font-extrabold leading-snug text-gray-900 dark:text-dark-text">
         {getLocalizedText(question, language)}
       </h2>
 
