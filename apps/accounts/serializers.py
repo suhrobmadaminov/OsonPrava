@@ -1,6 +1,7 @@
 """
 Auth Serializers
 """
+import json
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from core.validators import validate_password_does_not_contain_email, validate_username_format
@@ -100,8 +101,47 @@ class TelegramBotAuthSerializer(serializers.Serializer):
     """
     Telegram bot auth serializer
     POST /api/v1/auth/telegram-bot/
+    Accepts initData as JSON string or raw query string
     """
-    telegram_id = serializers.IntegerField()
+    initData = serializers.CharField(required=True)
+
+    def validate(self, data):
+        init_data = data.get('initData', '')
+
+        # Try to parse as JSON first (from bot)
+        try:
+            parsed = json.loads(init_data)
+            if isinstance(parsed, dict) and 'id' in parsed:
+                return {
+                    'telegram_id': int(parsed['id']),
+                    'first_name': parsed.get('first_name', ''),
+                    'last_name': parsed.get('last_name', ''),
+                    'username': parsed.get('username', ''),
+                }
+        except (json.JSONDecodeError, ValueError, TypeError):
+            pass
+
+        # Try to parse as URL query string (from PWA WebApp)
+        try:
+            from urllib.parse import parse_qs, unquote
+            parsed_qs = parse_qs(init_data)
+
+            # Extract user object
+            if 'user' in parsed_qs:
+                user_data = json.loads(unquote(parsed_qs['user'][0]))
+                return {
+                    'telegram_id': int(user_data.get('id', 0)),
+                    'first_name': user_data.get('first_name', ''),
+                    'last_name': user_data.get('last_name', ''),
+                    'username': user_data.get('username', ''),
+                }
+        except (json.JSONDecodeError, ValueError, TypeError, KeyError, IndexError):
+            pass
+
+        raise serializers.ValidationError('Invalid initData format. Expected JSON or query string.')
+
+    # Also support legacy direct fields
+    telegram_id = serializers.IntegerField(required=False)
     first_name = serializers.CharField(required=False, allow_blank=True)
     last_name = serializers.CharField(required=False, allow_blank=True)
     username = serializers.CharField(required=False, allow_blank=True)
