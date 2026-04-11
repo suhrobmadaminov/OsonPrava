@@ -243,7 +243,7 @@ class AuthService:
         
         # Check email verified
         if not user.email_verified:
-            raise EmailNotVerifiedException('Please verify your email first')
+            raise EmailNotVerifiedException('Email not verified. Please verify your email first.')
         
         # Check banned
         if user.is_banned():

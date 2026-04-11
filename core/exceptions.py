@@ -45,16 +45,18 @@ def custom_exception_handler(exc, context):
     return response
 
 
-class BusinessException(Exception):
+from rest_framework.exceptions import APIException
+
+class BusinessException(APIException):
     """
     Base class for business logic exceptions
     """
     status_code = status.HTTP_400_BAD_REQUEST
-    default_message = 'Bad request'
+    default_detail = 'Bad request'
     
-    def __init__(self, message=None):
-        self.message = message or self.default_message
-        super().__init__(self.message)
+    def __init__(self, detail=None, code=None):
+        self.detail = detail or self.default_detail
+        super().__init__(self.detail, code)
 
 
 class ConflictException(BusinessException):
@@ -63,7 +65,7 @@ class ConflictException(BusinessException):
     HTTP 409
     """
     status_code = status.HTTP_409_CONFLICT
-    default_message = 'Conflict'
+    default_detail = 'Conflict'
 
 
 class NotFoundException(BusinessException):
@@ -72,7 +74,7 @@ class NotFoundException(BusinessException):
     HTTP 404
     """
     status_code = status.HTTP_404_NOT_FOUND
-    default_message = 'Not found'
+    default_detail = 'Not found'
 
 
 class UnauthorizedException(BusinessException):
@@ -81,7 +83,7 @@ class UnauthorizedException(BusinessException):
     HTTP 401
     """
     status_code = status.HTTP_401_UNAUTHORIZED
-    default_message = 'Unauthorized'
+    default_detail = 'Unauthorized'
 
 
 class ForbiddenException(BusinessException):
@@ -90,7 +92,7 @@ class ForbiddenException(BusinessException):
     HTTP 403
     """
     status_code = status.HTTP_403_FORBIDDEN
-    default_message = 'Forbidden'
+    default_detail = 'Forbidden'
 
 
 class RateLimitExceededException(BusinessException):
@@ -99,7 +101,7 @@ class RateLimitExceededException(BusinessException):
     HTTP 429
     """
     status_code = status.HTTP_429_TOO_MANY_REQUESTS
-    default_message = 'Rate limit exceeded'
+    default_detail = 'Rate limit exceeded'
 
 
 class EmailNotVerifiedException(BusinessException):
@@ -108,7 +110,7 @@ class EmailNotVerifiedException(BusinessException):
     HTTP 403
     """
     status_code = status.HTTP_403_FORBIDDEN
-    default_message = 'Email not verified'
+    default_detail = 'Email not verified'
 
 
 class AccountLockedException(BusinessException):
@@ -117,4 +119,4 @@ class AccountLockedException(BusinessException):
     HTTP 403
     """
     status_code = status.HTTP_403_FORBIDDEN
-    default_message = 'Account locked'
+    default_detail = 'Account locked'
