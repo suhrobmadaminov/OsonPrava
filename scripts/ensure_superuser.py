@@ -25,9 +25,9 @@ def ensure_superuser():
     print(f"Ensuring superuser via script. Target email: {email}")
 
     try:
-        user = User.objects.filter(email=email).first()
+        user = User.objects.filter(email__iexact=email).first()
         if user:
-            print(f"User {email} already exists. Updating password and permissions...")
+            print(f"User {email} already exists (ID: {user.id}). Updating password and permissions...")
             user.set_password(password)
             user.is_staff = True
             user.is_superuser = True
