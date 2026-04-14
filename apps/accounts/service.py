@@ -189,25 +189,30 @@ class AuthService:
         # Check if email already registered
         if User.objects.filter(email=email).exists():
             raise ConflictException('Email already registered')
-        
+
+        # Check if auto-verify is enabled (development/no email backend)
+        from django.conf import settings
+        auto_verify = getattr(settings, 'AUTO_VERIFY_EMAIL', True)
+
         # Create user
-        verification_token = generate_secure_token(32)
-        verification_expires = timezone.now() + timedelta(hours=24)
-        
+        verification_token = generate_secure_token(32) if not auto_verify else None
+        verification_expires = timezone.now() + timedelta(hours=24) if not auto_verify else None
+
         user = User.objects.create(
             email=email,
             password=make_password(password),
-            email_verified=False,
+            email_verified=auto_verify,  # Auto-verify if enabled
             email_verification_token=verification_token,
             email_verification_expires=verification_expires,
         )
-        
+
         # Generate tokens
         tokens = cls.get_refresh_tokens(user)
-        
-        # Send verification email (should be Celery task)
-        cls._send_verification_email(user.email, verification_token, user.language)
-        
+
+        # Send verification email only if auto-verify is disabled
+        if not auto_verify:
+            cls._send_verification_email(user.email, verification_token, user.language)
+
         return {
             **tokens,
             'user': {
@@ -219,7 +224,7 @@ class AuthService:
                 'language': user.language,
                 'role': user.role,
             },
-            'message': 'Verification email sent. Please check your inbox.'
+            'message': 'Registration successful' if auto_verify else 'Verification email sent. Please check your inbox.'
         }
     
     @classmethod
@@ -233,31 +238,33 @@ class AuthService:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             raise AuthenticationFailed('Invalid credentials')
-        
+
         # Check account lockout
         if user.is_account_locked():
             remaining = (user.locked_until - timezone.now()).total_seconds() / 60
             raise AccountLockedException(f'Account locked. Try again in {remaining:.0f} minutes')
-        
+
         # Validate password
         if not check_password(password, user.password):
             user.increment_login_attempts()
             raise AuthenticationFailed('Invalid credentials')
-        
+
         # Success - reset attempts
         user.reset_login_attempts()
-        
-        # Check email verified
-        if not user.email_verified:
+
+        # Check email verified (skip if auto-verify is enabled)
+        from django.conf import settings
+        auto_verify = getattr(settings, 'AUTO_VERIFY_EMAIL', True)
+        if not auto_verify and not user.email_verified:
             raise EmailNotVerifiedException('Email not verified. Please verify your email first.')
-        
+
         # Check banned
         if user.is_banned():
             raise ForbiddenException('Account is banned')
-        
+
         # Update last active
         user.update_last_active()
-        
+
         # Generate tokens
         tokens = cls.get_refresh_tokens(user)
         return {

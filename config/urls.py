@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
@@ -24,7 +25,10 @@ schema_view = get_schema_view(
 urlpatterns = [
     # Admin panel
     path('admin/', admin.site.urls),
-    
+
+    # Favicon
+    path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
+
     # API v1 - Auth & Users
     path('api/v1/auth/', include('apps.accounts.urls')),
     path('api/v1/users/', include('apps.users.urls')),
