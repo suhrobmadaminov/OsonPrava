@@ -52,8 +52,9 @@ export default function RegisterPage() {
     try {
       const res = await authService.register(data.email, data.password, data.confirmPassword);
       login(res.user, res.accessToken, res.refreshToken);
-      toast.success(res.message || 'Registration successful! Please verify your email.');
-      navigate('/verify-email', { replace: true });
+      toast.success(res.message || 'Registration successful!');
+      // With AUTO_VERIFY_EMAIL enabled, redirect directly to dashboard
+      navigate('/', { replace: true });
     } catch (err: any) {
       const message = err.response?.data?.message || 'Registration failed';
       toast.error(message);

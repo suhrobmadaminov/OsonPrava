@@ -17,7 +17,7 @@ const queryClient = new QueryClient({
 });
 
 function AuthInitializer({ children }: { children: React.ReactNode }) {
-  const { setUser, setLoading } = useAuthStore();
+  const { setUser, setLoading, login } = useAuthStore();
   const { darkMode } = useSettingsStore();
 
   useEffect(() => {
@@ -28,6 +28,31 @@ function AuthInitializer({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const init = async () => {
+      // Check for tokens in URL params (from web app registration)
+      const params = new URLSearchParams(window.location.search);
+      const urlAccessToken = params.get('access_token');
+      const urlRefreshToken = params.get('refresh_token');
+
+      // If tokens are in URL, use them directly
+      if (urlAccessToken && urlRefreshToken) {
+        try {
+          setAccessToken(urlAccessToken);
+          localStorage.setItem('refreshToken', urlRefreshToken);
+
+          // Clean URL (remove tokens from address bar)
+          window.history.replaceState({}, document.title, window.location.pathname);
+
+          const user = await authService.getMe();
+          login(user, urlAccessToken, urlRefreshToken);
+          setLoading(false);
+          return;
+        } catch {
+          // URL tokens invalid, fall through to localStorage check
+          localStorage.removeItem('refreshToken');
+        }
+      }
+
+      // Check localStorage for existing tokens
       const refreshToken = localStorage.getItem('refreshToken');
       if (!refreshToken) {
         setLoading(false);
@@ -51,7 +76,7 @@ function AuthInitializer({ children }: { children: React.ReactNode }) {
     };
 
     init();
-  }, [setUser, setLoading]);
+  }, [setUser, setLoading, login]);
 
   return <>{children}</>;
 }

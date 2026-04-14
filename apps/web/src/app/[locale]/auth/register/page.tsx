@@ -99,10 +99,13 @@ export default function RegisterPage() {
       if (data.accessToken) localStorage.setItem('accessToken', data.accessToken);
       if (data.refreshToken) localStorage.setItem('refreshToken', data.refreshToken);
 
-      // Redirect after short delay
+      // Redirect with tokens in URL params (cross-domain auth)
       setTimeout(() => {
-        window.location.href = APP_URL;
-      }, 2000);
+        const url = new URL(APP_URL);
+        url.searchParams.set('access_token', data.accessToken);
+        url.searchParams.set('refresh_token', data.refreshToken);
+        window.location.href = url.toString();
+      }, 1500);
     } catch (err: any) {
       setError(err.message || 'Xatolik yuz berdi');
     } finally {
