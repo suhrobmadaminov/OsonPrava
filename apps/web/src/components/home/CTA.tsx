@@ -39,7 +39,7 @@ export function CTA() {
 
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a
-            href={`/${locale}/auth/register`}
+            href={APP_URL}
             className="inline-flex w-full items-center justify-center rounded-2xl bg-white px-8 py-4 text-lg font-bold text-duo-green shadow-[0_4px_0_0_#e5e7eb] transition-all hover:brightness-95 active:translate-y-1 active:shadow-none sm:w-auto"
           >
             Bepul boshlash
