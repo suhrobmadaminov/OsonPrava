@@ -48,13 +48,13 @@ export function Header() {
         <div className="hidden items-center gap-3 md:flex">
           <LanguageSwitcher />
           <a
-            href={`${APP_URL}/auth/login`}
+            href={`${APP_URL}/login`}
             className="rounded-xl border-2 border-duo-green px-5 py-2 text-sm font-bold text-duo-green transition-all hover:bg-duo-green/10"
           >
             {t('login')}
           </a>
           <a
-            href={`${APP_URL}/auth/register`}
+            href={`${APP_URL}/register`}
             className="rounded-2xl bg-duo-green px-5 py-2 text-sm font-bold text-white shadow-[0_3px_0_0_#4CAD01] transition-all hover:brightness-110 active:translate-y-0.5 active:shadow-none"
           >
             {t('register')}
@@ -87,14 +87,14 @@ export function Header() {
             ))}
             <div className="border-t border-gray-100 pt-4 mt-2 flex flex-col gap-3">
               <a
-                href={`${APP_URL}/auth/login`}
+                href={`${APP_URL}/login`}
                 onClick={() => setMobileOpen(false)}
                 className="rounded-xl border-2 border-duo-green px-4 py-3 text-center text-sm font-bold text-duo-green transition-all hover:bg-duo-green/10"
               >
                 {t('login')}
               </a>
               <a
-                href={`${APP_URL}/auth/register`}
+                href={`${APP_URL}/register`}
                 onClick={() => setMobileOpen(false)}
                 className="rounded-2xl bg-duo-green px-4 py-3 text-center text-sm font-bold text-white shadow-[0_3px_0_0_#4CAD01] transition-all hover:brightness-110"
               >
