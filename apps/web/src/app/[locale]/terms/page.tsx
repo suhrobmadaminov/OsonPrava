@@ -64,7 +64,7 @@ export default function TermsPage() {
           5. Aloqa
         </h2>
         <p>
-          Savollaringiz bo&apos;lsa: @OsonPravaBot (Telegram)
+          Savollaringiz bo&apos;lsa: @EasyPrava_bot (Telegram)
         </p>
       </div>
     </div>
