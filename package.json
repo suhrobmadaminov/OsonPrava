@@ -6,7 +6,6 @@
     "dev:api": "pnpm --filter @osonprava/api dev",
     "dev:web": "pnpm --filter @osonprava/web dev",
     "dev:app": "pnpm --filter @osonprava/app dev",
-    "dev:bot": "pnpm --filter @osonprava/bot dev",
     "build": "turbo run build",
     "build:api": "pnpm --filter @osonprava/api build",
     "build:web": "pnpm --filter @osonprava/web build",
@@ -19,8 +18,7 @@
     "db:seed": "pnpm --filter @osonprava/api prisma db seed",
     "db:studio": "pnpm --filter @osonprava/api prisma studio",
     "start:api": "pnpm --filter @osonprava/api start",
-    "start:web": "pnpm --filter @osonprava/web start",
-    "start:bot": "pnpm --filter @osonprava/bot start"
+    "start:web": "pnpm --filter @osonprava/web start"
   },
   "devDependencies": {
     "turbo": "^2.0.0"
