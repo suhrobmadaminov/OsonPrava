@@ -48,27 +48,29 @@ export default function LoginPage() {
     }
 
     // Telegram WebApp auto-login attempt (with timeout)
-    const tg = (window as unknown as Record<string, unknown>).Telegram as Record<string, Record<string, string>> | undefined;
+    const tg = (window as any).Telegram;
     if (tg?.WebApp?.initData) {
+      setIsSubmitting(true);
       const authTimeout = setTimeout(() => {
-        // If auth takes too long, show login page
-        toast.info('Telegram orqali kirish muvaffaqiyatsiz. Iltimos, ro\'yxatdan o\'ting.', { duration: 5000 });
-      }, 5000);
+        setIsSubmitting(false);
+        toast.info(t('auth.loginFailed'), { duration: 5000 });
+      }, 8000); // 8 seconds for auto-login
 
       authService.loginViaTelegramBot(tg.WebApp.initData)
         .then((res) => {
           clearTimeout(authTimeout);
-          login(res.user as Parameters<typeof login>[0], res.accessToken, res.refreshToken);
-          toast.success('Xush kelibsiz!');
+          login(res.user as any, res.accessToken, res.refreshToken);
+          toast.success(t('auth.welcome'));
           navigate('/', { replace: true });
         })
-        .catch(() => {
+        .catch((err) => {
           clearTimeout(authTimeout);
-          // API is unavailable - show login page with Telegram hint
-          toast.info('Avval ro\'yxatdan o\'ting yoki email bilan kiring', { duration: 5000 });
+          setIsSubmitting(false);
+          const message = err.response?.data?.message || t('auth.pleaseRegister');
+          toast.info(message, { duration: 5000 });
         });
     }
-  }, [isAuthenticated, navigate, login]);
+  }, [isAuthenticated, navigate, login, t]);
 
   // Telegram Login Widget callback
   useEffect(() => {
