@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
-import { APP_URL, TELEGRAM_BOT } from '@/lib/constants';
+import { APP_URL } from '@/lib/constants';
 import { motion } from 'framer-motion';
 
 export default function RegisterPage() {
@@ -148,40 +148,15 @@ export default function RegisterPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href={`/${locale}`} className="inline-flex flex-col items-center gap-4 mb-4">
-              <div className="flex h-20 w-20 items-center justify-center rounded-[2.5rem] bg-[#2AABEE] shadow-xl shadow-blue-500/30">
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10 text-white translate-x-[-2px] translate-y-[2px]">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.74 3.98-1.73 6.64-2.88 7.97-3.44 3.8-1.6 4.59-1.87 5.1-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.01.06.01.24 0 .38z" />
-                </svg>
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-duo-green shadow-lg shadow-green-500/20">
+                <span className="text-3xl font-extrabold text-white">O</span>
               </div>
               <span className="text-2xl font-black text-gray-900">
                 Oson<span className="text-duo-green">Prava</span>
               </span>
             </Link>
-            <h1 className="text-3xl font-black text-gray-900">Keling, ro'yxatdan o'tamiz!</h1>
-            <p className="mt-2 text-gray-500">Telegram orqali ro'yxatdan o'tish uchun quyidagi tugmani bosing. So'ng shu joyga qaytib keling.</p>
-          </div>
-
-          <div className="mb-8">
-            <a
-              href={TELEGRAM_BOT}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-3 bg-[#2AABEE] hover:bg-[#229ED9] text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98]"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.74 3.98-1.73 6.64-2.88 7.97-3.44 3.8-1.6 4.59-1.87 5.1-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.01.06.01.24 0 .38z" />
-              </svg>
-              Telegramda tasdiqlash
-            </a>
-            <p className="text-center text-xs text-gray-400 mt-3 italic">
-              Meni bossangiz sizni Telegram botimizga yuboradi. Botimiz sizni tasdiqlagandan so'ng bu yerga qaytib keling.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-4 mb-6">
-            <div className="flex-1 h-px bg-gray-100" />
-            <span className="text-xs text-gray-400 font-bold uppercase tracking-wider">yoki email orqali</span>
-            <div className="flex-1 h-px bg-gray-100" />
+            <h1 className="text-3xl font-black text-gray-900">Ro'yxatdan o'tish</h1>
+            <p className="mt-2 text-gray-500">Keling, yangi akkaunt yaratamiz!</p>
           </div>
 
           {/* Form */}

@@ -22,8 +22,6 @@ from rest_framework import status
 
 from core.utils import (
     generate_secure_token,
-    verify_telegram_webapp_data,
-    is_telegram_webapp_fresh,
     parse_expiry_string
 )
 from core.exceptions import (
@@ -99,86 +97,6 @@ class AuthService:
             'expires_at': expires_at
         }
     
-    @classmethod
-    def telegram_webapp_auth(cls, data: Dict[str, str]) -> Dict[str, Any]:
-        """
-        Authenticate via Telegram WebApp
-        Verifies HMAC-SHA256 hash
-        """
-        bot_token = settings.TELEGRAM_BOT_TOKEN
-        
-        # Verify hash
-        if not verify_telegram_webapp_data(data, bot_token):
-            raise AuthenticationFailed('Invalid Telegram data')
-        
-        # Check auth_date freshness (24 hours)
-        if not is_telegram_webapp_fresh(data.get('auth_date')):
-            raise AuthenticationFailed('Telegram data expired')
-        
-        # Get or create user
-        telegram_id = int(data['id'])
-        
-        user, created = User.objects.get_or_create(
-            telegram_id=telegram_id,
-            defaults={
-                'first_name': data.get('first_name', ''),
-                'last_name': data.get('last_name', ''),
-                'username': data.get('username', ''),
-                'avatar_url': data.get('photo_url', ''),
-                'email_verified': True,  # Auto-verify Telegram users
-            }
-        )
-        
-        # Update user data if not created
-        if not created:
-            user.first_name = data.get('first_name', user.first_name)
-            user.last_name = data.get('last_name', user.last_name)
-            user.username = data.get('username', user.username)
-            user.avatar_url = data.get('photo_url', user.avatar_url)
-            user.email_verified = True  # Ensure verified
-            user.save()
-        
-        # Check if banned
-        if user.is_banned():
-            raise ForbiddenException('Account is banned')
-        
-        # Generate tokens
-        tokens = cls.get_refresh_tokens(user)
-        user.update_last_active()
-        
-        return {
-            **tokens,
-            'user': cls._format_user_response(user)
-        }
-    
-    @classmethod
-    def telegram_bot_auth(cls, telegram_id: int, **kwargs) -> Dict[str, Any]:
-        """
-        Authenticate via Telegram bot
-        Simplified - assumes bot already verified user
-        """
-        user, created = User.objects.get_or_create(
-            telegram_id=telegram_id,
-            defaults={
-                'first_name': kwargs.get('first_name', ''),
-                'last_name': kwargs.get('last_name', ''),
-                'username': kwargs.get('username', ''),
-                'email_verified': True,
-            }
-        )
-        
-        # Check if banned
-        if user.is_banned():
-            raise ForbiddenException('Account is banned')
-        
-        # Generate tokens
-        tokens = cls.get_refresh_tokens(user)
-        user.update_last_active()
-        
-        return {
-            **tokens,
-            'user': cls._format_user_response(user)
-        }
     
     @classmethod
     def register(cls, email: str, password: str) -> Dict[str, Any]:
@@ -438,31 +356,6 @@ class AuthService:
         except RefreshToken.DoesNotExist:
             pass  # Token already deleted or invalid
     
-    @classmethod
-    def link_email(cls, user, email: str) -> Dict[str, str]:
-        """
-        Link email to Telegram account
-        """
-        # Check email not used by another user
-        if User.objects.filter(email=email).exclude(id=user.id).exists():
-            raise ConflictException('Email already in use by another account')
-        
-        # Generate verification token
-        verification_token = generate_secure_token(32)
-        verification_expires = timezone.now() + timedelta(hours=24)
-        
-        user.email = email
-        user.email_verification_token = verification_token
-        user.email_verification_expires = verification_expires
-        user.save(update_fields=['email', 'email_verification_token', 'email_verification_expires'])
-        
-        # Send verification email
-        cls._send_verification_email(user.email, verification_token, user.language)
-        
-        return {
-            'success': True,
-            'message': 'Email linked. Please verify via email.'
-        }
     
     @classmethod
     def _send_verification_email(cls, email: str, token: str, lang: str):
@@ -542,7 +435,6 @@ class AuthService:
         """
         return {
             'id': str(user.id),
-            'telegramId': str(user.telegram_id) if user.telegram_id else None,
             'email': user.email,
             'emailVerified': user.email_verified,
             'firstName': user.first_name,

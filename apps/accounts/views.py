@@ -19,47 +19,12 @@ from .serializers import (
     ForgotPasswordSerializer,
     ResetPasswordSerializer,
     RefreshTokenSerializer,
-    TelegramAuthSerializer,
-    TelegramBotAuthSerializer,
-    LinkEmailSerializer,
     AuthResponseSerializer,
 )
 from .service import AuthService
 from core.exceptions import UnauthorizedException
 
 
-@method_decorator(csrf_exempt, name='dispatch')
-class TelegramAuthView(views.APIView):
-    """
-    POST /api/v1/auth/telegram/
-    Login via Telegram WebApp widget
-    """
-    permission_classes = [AllowAny]
-    
-    def post(self, request):
-        serializer = TelegramAuthSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        
-        tokens = AuthService.telegram_webapp_auth(serializer.validated_data)
-        
-        return Response(tokens, status=status.HTTP_200_OK)
-
-
-@method_decorator(csrf_exempt, name='dispatch')
-class TelegramBotAuthView(views.APIView):
-    """
-    POST /api/v1/auth/telegram-bot/
-    Login via Telegram bot (initData)
-    """
-    permission_classes = [AllowAny]
-    
-    def post(self, request):
-        serializer = TelegramBotAuthSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        
-        tokens = AuthService.telegram_bot_auth(**serializer.validated_data)
-        
-        return Response(tokens, status=status.HTTP_200_OK)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -228,7 +193,6 @@ class MeView(views.APIView):
         
         return Response({
             'id': user.id,
-            'telegram_id': str(user.telegram_id) if user.telegram_id else None,
             'email': user.email,
             'email_verified': user.email_verified,
             'username': user.username,
@@ -245,20 +209,3 @@ class MeView(views.APIView):
         })
 
 
-@method_decorator(csrf_exempt, name='dispatch')
-class LinkEmailView(views.APIView):
-    """
-    POST /api/v1/auth/link-email/
-    Link email to Telegram account
-    Rate limited: 5 requests/hour per IP
-    """
-    permission_classes = [IsAuthenticated]
-    
-    @method_decorator(ratelimit(key='ip', rate='5/h', method='POST'))
-    def post(self, request):
-        serializer = LinkEmailSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        
-        result = AuthService.link_email(request.user, serializer.validated_data['email'])
-        
-        return Response(result, status=status.HTTP_200_OK)
