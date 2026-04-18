@@ -1,5 +1,5 @@
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/v1';
-export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001';
+export const API_URL = import.meta.env.VITE_API_URL || 'https://osonpravabackend-production.up.railway.app/api/v1';
+export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://osonpravabackend-production.up.railway.app';
 export const TELEGRAM_BOT = 'https://t.me/EasyPrava_bot';
 
 export const EXAM_QUESTION_COUNT = 20;

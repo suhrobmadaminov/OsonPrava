@@ -295,7 +295,8 @@ FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:5173')
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = DEBUG
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='http://localhost:3000,http://localhost:5173').split(',')
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='https://web-production-5462b.up.railway.app,https://*.railway.app,http://localhost:3000,http://localhost:5173').split(',')
+CORS_ALLOW_CREDENTIALS = True
 
 # CSRF Trusted Origins (Django 4.0+ requires full URL with scheme)
 CSRF_TRUSTED_ORIGINS = config(
@@ -324,12 +325,18 @@ CHANNEL_LAYERS = {
 
 # Email
 EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
 if config('EMAIL_HOST', default=None):
     EMAIL_HOST = config('EMAIL_HOST')
     EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
-    EMAIL_USE_TLS = True
     EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
     EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+    DEFAULT_FROM_EMAIL = config('EMAIL_FROM', default=config('EMAIL_HOST_USER', default='noreply@osonprava.uz'))
+
+# Auto-verify email in development or when email backend is not configured
+# This allows users to register and login immediately without email verification
+AUTO_VERIFY_EMAIL = config('AUTO_VERIFY_EMAIL', default=True, cast=bool)
 
 # Swagger
 SWAGGER_SETTINGS = {

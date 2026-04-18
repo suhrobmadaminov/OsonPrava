@@ -1,0 +1,14 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/[locale]/auth/forgot-password/page": "app/[locale]/auth/forgot-password/page.js",
+  "/[locale]/auth/login/page": "app/[locale]/auth/login/page.js",
+  "/[locale]/auth/register/page": "app/[locale]/auth/register/page.js",
+  "/[locale]/auth/verify-email/page": "app/[locale]/auth/verify-email/page.js",
+  "/[locale]/page": "app/[locale]/page.js",
+  "/[locale]/auth/reset-password/page": "app/[locale]/auth/reset-password/page.js",
+  "/[locale]/blog/page": "app/[locale]/blog/page.js",
+  "/[locale]/blog/[slug]/page": "app/[locale]/blog/[slug]/page.js",
+  "/[locale]/privacy/page": "app/[locale]/privacy/page.js",
+  "/[locale]/terms/page": "app/[locale]/terms/page.js",
+  "/[locale]/signs/page": "app/[locale]/signs/page.js"
+}

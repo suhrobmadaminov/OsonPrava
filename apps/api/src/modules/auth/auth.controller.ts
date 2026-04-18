@@ -29,7 +29,7 @@ export class AuthController {
   constructor(
     private authService: AuthService,
     private emailService: EmailService,
-  ) {}
+  ) { }
 
   // ==================== TELEGRAM AUTH ====================
 
@@ -44,14 +44,9 @@ export class AuthController {
   @Post('telegram-bot')
   @ApiOperation({ summary: 'Login via Telegram bot (initData)' })
   async loginViaTelegramBot(
-    @Body() body: { telegramId: number; firstName?: string; lastName?: string; username?: string },
+    @Body() body: { initData: string },
   ) {
-    return this.authService.loginViaTelegramBot(
-      body.telegramId,
-      body.firstName,
-      body.lastName,
-      body.username,
-    );
+    return this.authService.loginViaTelegramBot(body.initData);
   }
 
   // ==================== EMAIL AUTH ====================
@@ -67,7 +62,7 @@ export class AuthController {
 
     // Send verification email
     const lang = req.headers['accept-language']?.split(',')[0] || 'uz';
-    await this.emailService.sendVerificationEmail(dto.email, result.verificationToken, lang).catch(() => {});
+    await this.emailService.sendVerificationEmail(dto.email, result.verificationToken, lang).catch(() => { });
 
     const { verificationToken: _, ...responseWithoutToken } = result;
     return {
@@ -155,7 +150,7 @@ export class AuthController {
     const result = await this.authService.linkEmailToTelegramAccount(userId, body.email);
 
     // Send verification email
-    await this.emailService.sendVerificationEmail(body.email, result.verificationToken, lang).catch(() => {});
+    await this.emailService.sendVerificationEmail(body.email, result.verificationToken, lang).catch(() => { });
 
     return { success: true, message: 'Email linked. Please verify via email.' };
   }

@@ -66,10 +66,31 @@ export default function RegisterPage() {
 
       if (!res.ok) {
         // Handle validation errors from Django backend
-        const errorMessage = typeof data === 'object' 
-          ? (data.message || data.detail || data.email?.[0] || data.password?.[0] || data.non_field_errors?.[0] || 'Ro\'yxatdan o\'tishda xatolik')
-          : String(data || 'Ro\'yxatdan o\'tishda xatolik');
-        throw new Error(errorMessage);
+        let errorMessage = 'Ro\'yxatdan o\'tishda xatolik';
+
+        if (typeof data === 'object' && data !== null) {
+          if (data.message) {
+            if (typeof data.message === 'object') {
+              // Extract first error from the errors object
+              const fieldErrors = Object.values(data.message);
+              errorMessage = fieldErrors.length > 0 ? String(fieldErrors[0]) : errorMessage;
+            } else {
+              errorMessage = data.message;
+            }
+          } else if (data.detail) {
+            errorMessage = data.detail;
+          } else if (data.email) {
+            errorMessage = Array.isArray(data.email) ? data.email[0] : data.email;
+          } else if (data.password) {
+            errorMessage = Array.isArray(data.password) ? data.password[0] : data.password;
+          } else if (data.non_field_errors) {
+            errorMessage = Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors;
+          }
+        } else if (typeof data === 'string') {
+          errorMessage = data;
+        }
+
+        throw new Error(String(errorMessage));
       }
 
       setSuccess(true);
@@ -78,10 +99,13 @@ export default function RegisterPage() {
       if (data.accessToken) localStorage.setItem('accessToken', data.accessToken);
       if (data.refreshToken) localStorage.setItem('refreshToken', data.refreshToken);
 
-      // Redirect after short delay
+      // Redirect with tokens in URL params (cross-domain auth)
       setTimeout(() => {
-        window.location.href = APP_URL;
-      }, 2000);
+        const url = new URL(APP_URL);
+        url.searchParams.set('access_token', data.accessToken);
+        url.searchParams.set('refresh_token', data.refreshToken);
+        window.location.href = url.toString();
+      }, 1500);
     } catch (err: any) {
       setError(err.message || 'Xatolik yuz berdi');
     } finally {

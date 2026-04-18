@@ -22,20 +22,20 @@ export function HeroSection() {
     <section className="relative overflow-hidden bg-gradient-to-br from-expressive-primary/5 via-white to-expressive-secondary/5 px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pt-24">
       {/* Background decorations - Expressive */}
       <div className="pointer-events-none absolute inset-0">
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-gradient-primary/20 blur-3xl" 
+          className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-gradient-primary/20 blur-3xl"
         />
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity }}
-          className="absolute -right-48 top-32 h-[32rem] w-[32rem] rounded-full bg-gradient-secondary/20 blur-3xl" 
+          className="absolute -right-48 top-32 h-[32rem] w-[32rem] rounded-full bg-gradient-secondary/20 blur-3xl"
         />
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.3, 0.2] }}
           transition={{ duration: 6, repeat: Infinity }}
-          className="absolute left-1/2 -translate-x-1/2 bottom-0 h-80 w-80 rounded-full bg-gradient-success/15 blur-3xl" 
+          className="absolute left-1/2 -translate-x-1/2 bottom-0 h-80 w-80 rounded-full bg-gradient-success/15 blur-3xl"
         />
       </div>
 
@@ -113,7 +113,7 @@ export function HeroSection() {
           <motion.a
             whileHover={{ scale: 1.05, y: -5 }}
             whileTap={{ scale: 0.95 }}
-            href={`/${locale}/auth/register`}
+            href={APP_URL}
             className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-primary px-8 py-4 text-lg font-bold text-white shadow-expressive-lg hover:shadow-glow-primary transition-all"
           >
             Hoziroq boshlash
