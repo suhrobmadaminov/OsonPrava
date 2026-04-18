@@ -286,10 +286,6 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM': 'sub',
 }
 
-# Telegram
-TELEGRAM_BOT_TOKEN = config('TELEGRAM_BOT_TOKEN', default='')
-TELEGRAM_BOT_USERNAME = config('TELEGRAM_BOT_USERNAME', default='')
-
 # Frontend
 FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:5173')
 
