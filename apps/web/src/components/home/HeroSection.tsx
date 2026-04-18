@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useLocale } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { APP_URL, TELEGRAM_BOT } from '@/lib/constants';
+import { APP_URL } from '@/lib/constants';
 import { Star, ArrowRight, Sparkles } from 'lucide-react';
 
 export function HeroSection() {
@@ -119,19 +119,6 @@ export function HeroSection() {
             Hoziroq boshlash
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
           </motion.a>
-          <motion.a
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.95 }}
-            href={TELEGRAM_BOT}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-2xl bg-[#2AABEE] px-8 py-4 text-lg font-bold text-white shadow-expressive hover:shadow-[0_0_30px_rgba(42,171,238,0.5)] transition-all"
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-            </svg>
-            Telegram orqali kirish
-          </motion.a>
         </motion.div>
 
         {/* App Store Badges - Expressive */}
@@ -162,21 +149,11 @@ export function HeroSection() {
               label: 'App Store',
               className: 'bg-gray-900 hover:bg-gray-800',
             },
-            {
-              href: TELEGRAM_BOT,
-              icon: (
-                <svg viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8">
-                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-                </svg>
-              ),
-              label: 'Telegram',
-              className: 'bg-[#229ED9] hover:bg-[#1f8ec4]',
-            },
           ].map((badge, i) => (
             <motion.a
               key={i}
               href={badge.href}
-              target={badge.href === TELEGRAM_BOT ? '_blank' : undefined}
+              target={badge.href.startsWith('http') ? '_blank' : undefined}
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1, y: -5 }}
               whileTap={{ scale: 0.95 }}
@@ -185,7 +162,7 @@ export function HeroSection() {
               {badge.icon}
               <div className="text-left">
                 <div className="text-xs font-medium text-gray-300">
-                  {i === 2 ? 'Orqali ochish' : i === 0 ? 'GET IT ON' : 'Download on the'}
+                  {i === 0 ? 'GET IT ON' : 'Download on the'}
                 </div>
                 <div className="text-base font-bold text-white">{badge.label}</div>
               </div>
