@@ -132,6 +132,15 @@ app.useStaticAssets(join(__dirname, '..', '..', 'app', 'dist'));
    ```
 2. `apps/app/dist` ni Vercel, Netlify yoki Railway'dagi nginx service'ga joylashtiring
 
+#### Variant C: Railway'da alohida `apps/app` service (Eng oson)
+Bu repoda `apps/app/railway.toml` bor. Railway'da yangi service ochib, **Root Directory** ni `apps/app` qiling:
+
+- **Build Command**: avtomatik (`pnpm install` + `pnpm build`)
+- **Start Command**: avtomatik (`serve -s dist -l $PORT`)
+
+So'ng **`app.osonprava.uz` domenini aynan shu `apps/app` service'ga ulang**.
+Agar `app.osonprava.uz` tasodifan `apps/web` (Next.js) yoki backend service'ga ulangan bo'lsa, platforma ko'pincha canonical domain sababli `osonprava.uz` ga 301/302 redirect qilib yuboradi.
+
 ### 7️⃣ Service'lar Bog'lash
 
 Barcha service'larni bog'lash uchun:

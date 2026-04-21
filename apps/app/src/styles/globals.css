@@ -66,7 +66,9 @@
   }
 
   .card-expressive-gradient {
-    @apply bg-gradient-primary/10 dark:bg-gradient-primary/20 backdrop-blur-xl
+    @apply bg-gradient-to-br from-expressive-primary/10 via-expressive-secondary/10 to-expressive-accent/10
+      dark:from-expressive-primary/20 dark:via-expressive-secondary/20 dark:to-expressive-accent/20
+      backdrop-blur-xl
       border border-white/20 dark:border-white/10
       rounded-3xl p-6 shadow-expressive
       hover:shadow-expressive-xl hover:-translate-y-2

@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { userService } from '@/services/userService';
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
-import { cn, formatPercent, getProgressColor } from '@/lib/utils';
+import { cn, formatPercent } from '@/lib/utils';
 
 export default function TicketsPage() {
   const { t } = useTranslation();

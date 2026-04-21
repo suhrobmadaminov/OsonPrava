@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { BarChart3, Target, AlertCircle, Flame, Clock } from 'lucide-react';
+import { Target, AlertCircle, Flame, Clock } from 'lucide-react';
 import { userService } from '@/services/userService';
 import { useSettingsStore } from '@/stores/settingsStore';
 import LoadingSpinner from '@/components/shared/LoadingSpinner';

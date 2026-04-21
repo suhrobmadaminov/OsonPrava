@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useOctagonStore } from '@/stores/octagonStore';
-import { useAuthStore } from '@/stores/authStore';
 import OctagonResult from '@/components/octagon/OctagonResult';
 import { socketService } from '@/services/socketService';
 import { useEffect } from 'react';
@@ -15,7 +14,6 @@ function getResult(myScore: number, opponentScore: number): Result {
 
 export default function OctagonResultsPage() {
   const navigate = useNavigate();
-  const user = useAuthStore((s) => s.user);
   const { myScore, opponentScore, opponent, reset } = useOctagonStore();
 
   useEffect(() => {

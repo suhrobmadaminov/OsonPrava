@@ -19,6 +19,7 @@ export default function TestProgress({ current, total, answers, questionIds, onN
           <button
             key={qId}
             onClick={() => onNavigate(i)}
+            title={`${i + 1} / ${total}`}
             className={cn(
               'w-8 h-8 rounded-lg text-xs font-bold transition-all',
               isCurrent && 'ring-2 ring-duo-blue ring-offset-2 dark:ring-offset-dark-bg',

@@ -20,7 +20,7 @@ export default function OctagonLobbyPage() {
   useEffect(() => {
     if (status !== 'searching') return;
 
-    const socket = socketService.connect();
+    socketService.connect();
 
     socketService.onMatchFound((data) => {
       setMatched(data.matchId, data.opponent);

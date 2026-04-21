@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { Medal, Lock } from 'lucide-react';
 import { userService } from '@/services/userService';
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
-import { cn } from '@/lib/utils';
 
 export default function AchievementsPage() {
   const { t } = useTranslation();

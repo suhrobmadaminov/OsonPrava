@@ -37,3 +37,6 @@ logs/
 .DS_Store
 Thumbs.db
 node_modules
+
+# Frontend build/ts artifacts
+apps/app/tsconfig.tsbuildinfo
