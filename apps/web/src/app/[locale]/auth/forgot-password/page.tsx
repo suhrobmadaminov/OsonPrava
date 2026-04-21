@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { API_URL } from '@/lib/constants';
 
 export default function ForgotPasswordPage() {
   const locale = useLocale();
@@ -18,7 +19,7 @@ export default function ForgotPasswordPage() {
     setError('');
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://api.osonprava.uz/api/v1'}/auth/forgot-password/`, {
+      const res = await fetch(`${API_URL}/auth/forgot-password/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

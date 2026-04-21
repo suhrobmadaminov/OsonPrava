@@ -4,7 +4,7 @@ import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
-import { APP_URL } from '@/lib/constants';
+import { API_URL, APP_URL } from '@/lib/constants';
 import { motion } from 'framer-motion';
 
 function VerifyEmailContent() {
@@ -25,7 +25,7 @@ function VerifyEmailContent() {
     setError('');
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://api.osonprava.uz/api/v1'}/auth/verify-email`, {
+      const res = await fetch(`${API_URL}/auth/verify-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token }),

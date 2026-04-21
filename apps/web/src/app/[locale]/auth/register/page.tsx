@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
-import { APP_URL } from '@/lib/constants';
+import { API_URL, APP_URL } from '@/lib/constants';
 import { motion } from 'framer-motion';
 
 export default function RegisterPage() {
@@ -56,7 +56,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://api.osonprava.uz/api/v1'}/auth/register/`, {
+      const res = await fetch(`${API_URL}/auth/register/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, confirm_password: confirmPassword }),
@@ -262,7 +262,10 @@ export default function RegisterPage() {
 
         {/* Footer text */}
         <p className="text-center text-sm text-gray-500 mt-6">
-          App-ga o'tish: <a href={APP_URL} className="text-duo-green font-semibold hover:underline">app.osonprava.uz</a>
+          App-ga o'tish:{' '}
+          <a href={APP_URL} className="text-duo-green font-semibold hover:underline">
+            {APP_URL.replace(/^https?:\/\//, '')}
+          </a>
         </p>
       </motion.div>
     </div>

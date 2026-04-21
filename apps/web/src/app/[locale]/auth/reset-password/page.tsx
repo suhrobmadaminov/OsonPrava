@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { API_URL } from '@/lib/constants';
 
 function ResetPasswordContent() {
   const locale = useLocale();
@@ -60,7 +61,7 @@ function ResetPasswordContent() {
     setError('');
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://api.osonprava.uz/api/v1'}/auth/reset-password/`, {
+      const res = await fetch(`${API_URL}/auth/reset-password/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
