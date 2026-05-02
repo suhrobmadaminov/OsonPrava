@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "npx --yes pnpm@9.0.0 build"
+buildCommand = "npx --yes pnpm@9.0.0 install && npx --yes pnpm@9.0.0 build"
 
 [deploy]
 numReplicas = 1
